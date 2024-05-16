@@ -1,3 +1,5 @@
+import "@styles/room.scss";
+
 export default function Layout(
     { children }: { children: React.ReactNode }
 ){

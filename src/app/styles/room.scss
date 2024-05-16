@@ -1,0 +1,41 @@
+
+
+
+.room{
+    &__form{
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        input{
+           width: 100%;
+           padding: 10px;
+           margin: 10px 0;
+           border: 1px solid #ccc;
+           border-radius: 5px;
+           color: black;
+           box-sizing: border-box;
+        }
+
+        input:focus{
+            border: 3px solid green;
+            // outline: none;
+        }
+
+        button{
+            margin-left: 6px;
+            height: 3rem;;
+            width: 4rem;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: white;
+            background-color: #007bff;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+
+    }
+}
