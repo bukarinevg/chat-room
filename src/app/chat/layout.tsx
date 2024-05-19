@@ -1,12 +1,13 @@
 import "@styles/room.scss";
+import Sidenav from "@ui/sidenav";
 
 export default function Layout(
     { children }: { children: React.ReactNode }
 ){
     return(
         <main>
-            <h1>Room</h1>
-            <article>{children}</article>
+            <Sidenav />
+            <div>{children}</div>
         </main>
     )
 }
