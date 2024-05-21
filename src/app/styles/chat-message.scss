@@ -1,0 +1,40 @@
+.chat-message{
+    background: none;
+    border: none;
+    display: flex;
+    margin: 0.5rem 0;
+    max-width: 80%;
+    margin: 1rem auto;
+
+    &__content{
+        width: 100%;    
+        display: grid;
+        grid-template-columns: auto 1fr;
+    }
+
+    &__author{
+        display: flex;
+        align-items: center;
+        // border-right: gray 1px solid;
+        font-size: 0.8rem;
+        color: #ccc;
+        margin-right: 1rem;
+
+        &__avatar{
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            background-color: gray;
+        }
+    }
+
+    &__text{
+        background: #f1f1f1;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        word-break: break-word; 
+        overflow-wrap: break-word;
+    }
+}
