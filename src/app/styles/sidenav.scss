@@ -3,36 +3,27 @@
     background-color: #333;
     height: 100%;
     color: white;
-    // padding: 1rem;
-    // &__icon{
-    //     height:1.5rem;
-    //     float: left;
-    //     margin-bottom: 1rem;;
-    //     cursor: pointer;
-    // }
+    width: 20px;
+    transition: width 1s;
+    // font-size: 1.5rem;
+    padding: 0rem 1rem;
 
-    &__menu{
-        // box-sizing: border-box;
-        padding: 0rem 1rem;
-        height: 100%;
-        // border: 1px solid black;
-        opacity: 0;
-        width: 20px;
-        transition: width 1s;
-
-        &:hover{
-            opacity: 1;
-            width: 200px;
-            overflow-y: hidden;
-            overflow-x: auto;
-        }
-        
+    &:hover{
+        width: 200px;
+        overflow-y: hidden;
+        overflow-x: auto;
     }
 
+    &__menu{
+        white-space: nowrap;
+    }
 
-
-
+    &__menu-preview{
+        width: 100%;
+        cursor: pointer;
+    }
 
 }
+
 
 
