@@ -1,0 +1,29 @@
+
+.sidenav{
+    background-color: #333;
+    height: 100%;
+    color: white;
+    width: 20px;
+    transition: width 1s;
+    // font-size: 1.5rem;
+    padding: 0rem 1rem;
+
+    &:hover{
+        width: 200px;
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+
+    &__menu{
+        white-space: nowrap;
+    }
+
+    &__menu-preview{
+        width: 100%;
+        cursor: pointer;
+    }
+
+}
+
+
+

@@ -5,9 +5,12 @@ export default function Layout(
     { children }: { children: React.ReactNode }
 ){
     return(
-        <main>
-            <Sidenav />
-            <div>{children}</div>
-        </main>
+        <>
+            <main>
+                <Sidenav />
+                <div className="content">{children}</div>
+            </main>
+        </>
+
     )
 }
