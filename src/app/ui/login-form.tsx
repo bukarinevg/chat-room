@@ -9,7 +9,7 @@ import Button from './button';
 
 export default function LoginForm() {
     const searchParams = useSearchParams(); // Get query parameters from the URL.
-    const callbackUrl = "/room";
+    const callbackUrl = "/chat";
 
     return (
         <section className='login-form'>

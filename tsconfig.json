@@ -21,6 +21,8 @@
       "@/*": ["./src/app/*"],
       "@ui/*": ["./src/app/ui/*"],
       "@styles/*": ["./src/styles/*"],
+      "@context/*": ["./src/context/*"],
+      "@lib/*": ["./src/app/lib/*"],
 
     }
   },
