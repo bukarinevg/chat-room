@@ -1,6 +1,6 @@
 'use client';
 import '@styles/chat-form.scss';
-import Button from '@/app/ui/button';
+import Button from '@/ui/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 

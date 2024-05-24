@@ -20,7 +20,7 @@
     "paths": {
       "@/*": ["./src/app/*"],
       "@ui/*": ["./src/app/ui/*"],
-      "@styles/*": ["./src/app/styles/*"],
+      "@styles/*": ["./src/styles/*"],
 
     }
   },

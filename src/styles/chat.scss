@@ -6,7 +6,7 @@ main{
     overflow: hidden;
     .content{
         padding: 0.5rem;
-        margin-bottom: 0;
+        margin-bottom: 2em;
         position: relative;
         width: 100%;
         display: grid;
@@ -19,3 +19,12 @@ main{
     }
 }
 
+header{
+    color:white;
+    height: 2rem;
+    height: 40px;
+    background-color: rgb(51, 51, 51);
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
