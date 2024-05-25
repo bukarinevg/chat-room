@@ -1,11 +1,14 @@
 'use client';
 
 import '@styles/chat-messages.scss';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import ChatMessage from './chat-message';
 
 export default function ChatMessages() {
+    const [Loading, setLoading] = useState(true);
+
     let messages = Array.from({ length: 9 });
+
     messages= messages.reverse();
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -21,9 +24,16 @@ export default function ChatMessages() {
     return (
         <div className='chat-messages'>
             {
-                messages.map((_, index) => (
-                   <ChatMessage key={index} i={index} />
-                ))
+                !Loading && (
+                    messages.map((_, index) => (
+                    <ChatMessage key={index} i={index} />
+                    ))
+                )
+            }
+            {
+                Loading && (
+                    <p>Loading...</p>
+                )
             }
             <div ref={messagesEndRef} className='chat-messages__point'></div>
         </div>
