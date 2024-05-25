@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 export default function Sidenav(){
     const [open, setOpen] = useState(false);
-
+    const chats = Array.from({ length: 20 });
     return(
         <>
 
@@ -21,20 +21,22 @@ export default function Sidenav(){
                         style={open ? {} : { display: 'none'} }
                         
                     >
-                        <p> chat 1</p>
-                        <p>chat 2</p>
-                        <p>chat 3</p>
-                        <p>chaasdddddddddasdddddddddddddddddddddt 4</p>
+                          {
+                            chats.map((_, index) => (
+                                <p key={index}>chat {index}</p>
+                            ))
+                        }
                     </nav>
 
                     <nav
                         className='sidenav__menu-preview'   
                         style={open ? {display: 'none'} : {} }
                     >
-                        <p>1</p>
-                        <p>2</p>
-                        <p>3</p>
-                        <p>4</p>
+                        {
+                            chats.map((_, index) => (
+                                <p key={index}>{index}</p>
+                            ))
+                        }
                     </nav>
                 
             </div>

@@ -6,7 +6,7 @@ export default function ChatMessage({i} : {i: number}){
 
 
     return(
-        <div className='chat-message'>
+        <div className='chat-message' >
             <div className='chat-message__content'>
                 <div className='chat-message__author'> 
                     <img className='chat-message__author__avatar' src='https://loremflickr.com/320/240' alt='Author' />

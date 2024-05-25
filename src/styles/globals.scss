@@ -1,6 +1,6 @@
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 
 // :root {
@@ -37,7 +37,7 @@
 body{
   margin: 0;
   height: 100vh;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 @keyframes slideIn {

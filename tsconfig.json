@@ -18,12 +18,14 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/app/*"],
       "@ui/*": ["./src/app/ui/*"],
-      "@styles/*": ["./src/app/styles/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@context/*": ["./src/context/*"],
+      "@lib/*": ["./src/app/lib/*"],
 
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/auth/[auth0]/route.js", "src/app/api/auth/[...nextauth].js"],
   "exclude": ["node_modules"]
 }

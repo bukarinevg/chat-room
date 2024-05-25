@@ -1,0 +1,44 @@
+
+main{
+    height: 93%;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    .content{
+        padding: 0.5rem;
+        position: relative;
+        width: 100%;
+        display: grid;
+        overflow-y: hidden; 
+    }
+}
+
+header{
+    color:white;
+    height: 7%;
+    background-color: rgb(51, 51, 51);
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+
+    .header{
+        &__icon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            cursor: pointer;
+            
+        }
+
+        &__menu{
+            // cursor: pointer;
+            position: absolute;
+            z-index: 1;
+            padding: 0.5rem;
+            top: 7%;
+            right: 0rem;
+            background-color: rgba(51, 51, 51, 0.9);
+        }
+    }
+}
