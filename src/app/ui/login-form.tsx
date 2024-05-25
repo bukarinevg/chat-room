@@ -2,13 +2,12 @@
 
 import '@styles/login-form.scss';
 import { signIn } from "next-auth/react";
-import { useSearchParams, useRouter } from "next/navigation";
+// import { useSearchParams, useRouter } from "next/navigation";
 import { oAuth } from '@/lib/actions';
 import Button from './button';
 
 
 export default function LoginForm() {
-    const searchParams = useSearchParams(); // Get query parameters from the URL.
     const callbackUrl = "/chat";
 
     return (

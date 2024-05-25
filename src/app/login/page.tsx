@@ -1,6 +1,5 @@
 import '@styles/login.scss';
 import LoginForm from '@ui/login-form';
-import Form from '@ui/form';
 
 export default function Page() {
     return (
