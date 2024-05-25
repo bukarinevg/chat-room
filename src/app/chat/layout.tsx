@@ -21,14 +21,20 @@ export default function Layout(
     return(
         <>
             <header onMouseLeave={() => toggleMenu(false)}  >
-                <p><FontAwesomeIcon icon={faPlus} className="header__icon" /> </p>
+                <div>
+                    <FontAwesomeIcon 
+                        icon={faPlus} 
+                        className="header__icon" 
+                    />
+                </div>
+                <div>
+                    <FontAwesomeIcon 
+                        icon={faUser} 
+                        className="header__icon" 
+                        onMouseEnter={() => toggleMenu(true)} 
+                    />
+                </div>
                 
-                <FontAwesomeIcon 
-                    icon={faUser} 
-                    className="header__icon" 
-                    onMouseEnter={() => toggleMenu(true)} 
-                    
-                />
                 {
                     isMenuOpen && (
                         <div className="header__menu">

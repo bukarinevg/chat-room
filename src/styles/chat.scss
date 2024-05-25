@@ -1,5 +1,6 @@
 
 main{
+    box-sizing: content-box;
     height: 93dvh;
     display: flex;
     width: 100%;
@@ -14,21 +15,23 @@ main{
 }
 
 header{
+    box-sizing: content-box;
     color:white;
-    height: 7dvh;
+    height: 5dvh;
     background-color: rgb(51, 51, 51);
     padding: 0.5rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .header{
         &__icon{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
             cursor: pointer;
-            
+            height: 1.5rem;;
+        }
+
+        div{
+            height: auto;
         }
 
         &__menu{
