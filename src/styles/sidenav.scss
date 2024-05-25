@@ -6,13 +6,14 @@
     font-size: 1.3rem;
     padding: 1rem 0.5rem;
     overflow-y: auto;
+    
    
 
     &:hover{
-        width: 100%;
         overflow-y: auto;
-        overflow-x: auto;
-        padding: 1rem 0.5rem;
+        overflow-x: hidden; /* Prevent scrollbars in the sidenav */
+        display: flex;
+        flex-direction: column;
     }
 
     &__menu{
