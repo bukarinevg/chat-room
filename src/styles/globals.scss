@@ -39,6 +39,17 @@ body {
   height: 100vh;
 }
 
+section{
+  margin: 0;
+  padding: 0;
+}
+
+div{
+  margin: 0;
+  padding: 0;
+}
+
+
 @keyframes slideIn {
     from {
       transform: translateX(-100%);
