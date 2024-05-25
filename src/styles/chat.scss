@@ -2,14 +2,15 @@
 main{
     box-sizing: content-box;
     height: 93dvh;
-    display: flex;
     width: 100%;
     overflow: hidden;
+
+    display: flex;
+    
     .content{
         padding: 0.5rem;
         position: relative;
         width: 100%;
-        display: grid;
         overflow-y: hidden; 
     }
 }
