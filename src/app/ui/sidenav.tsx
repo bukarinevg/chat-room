@@ -23,7 +23,7 @@ export default function Sidenav(){
                     >
                           {
                             chats.map((_, index) => (
-                                <p key={index}>chat {index}</p>
+                                <div key={index}>chat {index}</div>
                             ))
                         }
                     </nav>
