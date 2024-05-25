@@ -1,28 +1,21 @@
 
 main{
-    height: 100%;
+    height: 93%;
     display: flex;
     width: 100%;
     overflow: hidden;
     .content{
         padding: 0.5rem;
-        margin-bottom: 2em;
         position: relative;
         width: 100%;
         display: grid;
-        overflow-y: auto; 
-        // grid-template-rows: 1fr 2fr 1fr;
-
-        :last-child {
-            align-self: end;
-        }
+        overflow-y: hidden; 
     }
 }
 
 header{
     color:white;
-    height: 2rem;
-    height: 40px;
+    height: 7%;
     background-color: rgb(51, 51, 51);
     padding: 0.5rem;
     display: flex;
@@ -33,8 +26,9 @@ header{
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            height: 100%;
             cursor: pointer;
+            
         }
 
         &__menu{
@@ -42,7 +36,7 @@ header{
             position: absolute;
             z-index: 1;
             padding: 0.5rem;
-            top: 2.5rem;
+            top: 7%;
             right: 0rem;
             background-color: rgba(51, 51, 51, 0.9);
         }

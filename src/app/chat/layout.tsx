@@ -11,7 +11,6 @@ import { signOut } from "next-auth/react";
 export default function Layout(
     { children }: { children: React.ReactNode }
 ){
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {

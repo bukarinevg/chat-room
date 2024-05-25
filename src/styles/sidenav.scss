@@ -1,17 +1,19 @@
 
 .sidenav{
     background-color: #333;
-    height: 100%;
     color: white;
-    width: 20px;
     transition: width 1s;
+    font-size: 1.5rem;
     // font-size: 1.5rem;
-    padding: 0rem 1rem;
+    padding: 1rem 0.5rem;
+
+    overflow-y: auto;
 
     &:hover{
-        width: 200px;
-        overflow-y: hidden;
+        max-width: 220px;
+        overflow-y: auto;
         overflow-x: auto;
+        padding: 1rem 0.5rem;
     }
 
     &__menu{
@@ -21,6 +23,27 @@
     &__menu-preview{
         width: 100%;
         cursor: pointer;
+    }
+
+    /* Custom Scrollbar */
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    &:last-child{
+        margin-bottom: 1rem;
     }
 
 }
