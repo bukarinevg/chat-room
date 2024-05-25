@@ -37,17 +37,18 @@
 body {
   margin: 0;
   height: 100vh;
-  overflow: hidden;
-
-  @media only screen 
-    and (min-device-width: 375px) 
-    and (max-device-width: 812px) 
-    and (-webkit-min-device-pixel-ratio: 3) { 
-      /* styles for iPhone */
-      height: 100%;
-      overflow: auto;
-  }
 }
+
+section{
+  margin: 0;
+  padding: 0;
+}
+
+div{
+  margin: 0;
+  padding: 0;
+}
+
 
 @keyframes slideIn {
     from {
