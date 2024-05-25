@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 export default function Sidenav(){
     const [open, setOpen] = useState(false);
-    const chats = Array.from({ length: 20 });
+    const chats = Array.from({ length: 101 });
     return(
         <>
 

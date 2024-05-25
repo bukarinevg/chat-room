@@ -3,14 +3,13 @@
     background-color: #333;
     color: white;
     transition: width 1s;
-    font-size: 1.5rem;
-    // font-size: 1.5rem;
+    font-size: 1.3rem;
     padding: 1rem 0.5rem;
-
     overflow-y: auto;
+   
 
     &:hover{
-        max-width: 220px;
+        width: 100%;
         overflow-y: auto;
         overflow-x: auto;
         padding: 1rem 0.5rem;
