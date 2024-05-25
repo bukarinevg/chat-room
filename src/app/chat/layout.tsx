@@ -13,17 +13,22 @@ export default function Layout(
 ){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleMenu = () => {
-      setIsMenuOpen(!isMenuOpen);
+    const toggleMenu = (state: boolean) => {
+      setIsMenuOpen(state);
     };
     const callbackUrl = "/";
     
     return(
         <>
-            <header>
+            <header onMouseLeave={() => toggleMenu(false)}  >
                 <p><FontAwesomeIcon icon={faPlus} className="header__icon" /> </p>
                 
-                <FontAwesomeIcon icon={faUser} className="header__icon" onClick={toggleMenu} />
+                <FontAwesomeIcon 
+                    icon={faUser} 
+                    className="header__icon" 
+                    onMouseEnter={() => toggleMenu(true)} 
+                    
+                />
                 {
                     isMenuOpen && (
                         <div className="header__menu">

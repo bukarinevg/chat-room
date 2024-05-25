@@ -18,6 +18,7 @@ export default function ChatMessages() {
     
       useEffect(() => {
         scrollToBottom();
+        setLoading(false);
       }, [messages]);
     
 
