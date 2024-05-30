@@ -12,7 +12,7 @@ export default async function Page(){
     return (
         <>
             <h1>Room</h1>
-            <section>
+            <section className="chat__window">
                 <article>
                     <Suspense fallback={<p>Loading...</p>}>
                         <ChatMessages />

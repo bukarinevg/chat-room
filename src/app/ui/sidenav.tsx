@@ -15,30 +15,26 @@ export default function Sidenav(){
                 onMouseEnter={() => setOpen(true) } 
                 onMouseLeave={() => setOpen(false)} 
             >
-                    <nav 
-                        className='sidenav__menu'
-                        id='sidenav-menu'
-                        style={open ? {} : { display: 'none'} }
-                        
-                    >
-                          {
-                            chats.map((_, index) => (
-                                <div key={index}>chat {index}</div>
-                            ))
-                        }
-                    </nav>
-
-                    <nav
-                        className='sidenav__menu-preview'   
-                        style={open ? {display: 'none'} : {} }
-                    >
+                <nav 
+                    className='sidenav__menu'
+                    id='sidenav-menu'
+                    // style={open ? {} : { display: 'none'} }
+                    
+                >
                         {
-                            chats.map((_, index) => (
-                                <p key={index}>{index}</p>
-                            ))
-                        }
-                    </nav>
-                
+                        chats.map((_, index) => (
+                            <p 
+                                className='sidenav__text' 
+                                key={index}
+                                style={
+                                    {maxWidth: open ? '200px' : '15px'}
+                                }
+                            >
+                                    chat {index}
+                            </p>
+                        ))
+                    }
+                </nav>                
             </div>
         </>
     );
