@@ -24,13 +24,13 @@ export default function Sidenav(){
                         {
                         chats.map((_, index) => (
                             <p 
-                                className='sidenav__text' 
+                                className='sidenav__link' 
                                 key={index}
                                 style={
-                                    {maxWidth: open ? '200px' : '15px'}
+                                    {maxWidth: open ? '200px' : '50px'}
                                 }
                             >
-                                    chat {index}
+                                    chat {'str'.repeat(index)} 
                             </p>
                         ))
                     }
