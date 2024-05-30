@@ -23,14 +23,21 @@ export default function Sidenav(){
                 >
                         {
                         chats.map((_, index) => (
-                            <p 
+                            <p
                                 className='sidenav__link' 
                                 key={index}
                                 style={
                                     {maxWidth: open ? '200px' : '50px'}
                                 }
+                                
                             >
+                                <a
+                                    title={ 
+                                        'str'.repeat(index) 
+                                    }
+                                >
                                     chat {'str'.repeat(index)} 
+                                </a>
                             </p>
                         ))
                     }
