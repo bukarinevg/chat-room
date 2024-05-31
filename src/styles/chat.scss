@@ -12,6 +12,18 @@ main{
         position: relative;
         width: 100%;
         overflow-y: hidden; 
+
+        .chat{
+            &__window{
+                height: 100%;
+                overflow-y: hidden;
+                padding: 0.5rem;
+                display: flex;
+                flex-direction: column;
+                // justify-content: flex-end;
+                // align-items: flex-start;
+            }
+        }
     }
 }
 
@@ -46,3 +58,4 @@ header{
         }
     }
 }
+
