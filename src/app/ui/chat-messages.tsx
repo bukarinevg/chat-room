@@ -7,7 +7,7 @@ import ChatMessage from './chat-message';
 export default function ChatMessages() {
     const [Loading, setLoading] = useState(true);
 
-    let messages = Array.from({ length: 9 });
+    let messages = Array.from({ length: 10 });
 
     messages= messages.reverse();
     const messagesEndRef = useRef<HTMLDivElement>(null);

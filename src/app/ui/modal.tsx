@@ -1,25 +1,35 @@
-// components/Modal.tsx
 "use client";
 
 import React from 'react';
 
-interface ModalProps {
-  show: boolean;
-  onClose: () => void;
-}
 
-const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
+export default function Modal (
+  { children, show, onClose, title } : 
+  {
+    children: React.ReactNode, 
+    show: boolean, 
+    onClose: () => void,
+    title?: string
+  }){
+    
   if (!show) {
     return null;
   }
 
+  
+  const stopPropagation = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  }
+
   return (
-    <div className="modal-backdrop">
-      <div className="modal">
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal"  onClick={stopPropagation}>
+        <div className='modal-header'> 
+          {title?? 'Modal'} 
+          <button onClick={onClose}>X</button>
+        </div>
         <div className="modal-content">
-          <h2>Please Log In</h2>
-          <p>You must be logged in to access this content.</p>
-          <button onClick={onClose}>Close</button>
+          {children}
         </div>
       </div>
       <style jsx>{`
@@ -35,8 +45,8 @@ const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
           align-items: center;
         }
         .modal {
+          padding: 1rem;
           background: white;
-          padding: 2rem;
           border-radius: 0.5rem;
         }
         .modal-content {
@@ -44,9 +54,22 @@ const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
           flex-direction: column;
           align-items: center;
         }
+        .modal-header {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+          border-bottom: 1px solid #ccc;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .modal-header button { 
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: #333;
+        }
       `}</style>
     </div>
   );
 };
-
-export default Modal;

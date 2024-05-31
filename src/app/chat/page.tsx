@@ -10,16 +10,12 @@ export const metadata: Metadata = {
 export default async function Page(){
 
     return (
-        <>
-            <h1>Room</h1>
-            <section className="chat__window">
-                <article>
-                    <Suspense fallback={<p>Loading...</p>}>
-                        <ChatMessages />
-                        <ChatForm />
-                    </Suspense>
-                </article>
-            </section>
-        </>
+     <section className="chat__window">
+                <h1>Room</h1>
+                <Suspense fallback={<p>Loading...</p>}>
+                    <ChatMessages />
+                    <ChatForm />
+                </Suspense>   
+      </section>
     );
 }
