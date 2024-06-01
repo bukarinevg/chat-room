@@ -6,7 +6,7 @@ import AuthModal from "@ui/auth-modal";
 import { useState } from "react";
 
 export default function Home() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <main className="content">
@@ -35,7 +35,7 @@ export default function Home() {
         <section className="chat__usage block" >
           <p>
             To contnue you need to login, with google or facebook account,<br></br>
-            or use exemple account.
+            or use test account.
           </p>
           <Button 
             className="chat__usage__proceed"

@@ -1,4 +1,5 @@
 import Modal from "@ui/modal";
+import LoginForm from "@ui/login-form";
 export default function AuthModal(
     {show, onClose}:  {
         show : boolean,
@@ -6,9 +7,8 @@ export default function AuthModal(
     }){
 
     return (
-        <Modal show={show} onClose={onClose} title="Authorize">
-            <h2>Please Log In</h2>
-            <p>You must be logged in to access this content.</p>
+        <Modal show={show} onClose={onClose} title="Login">
+            <LoginForm />
         </Modal>
     );
 }

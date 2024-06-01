@@ -17,34 +17,27 @@ datasource db {
 
 model User {
   id    Int    @id @default(autoincrement())
-  messages Message[]
   name  String
+  email String  @unique
+  password String
   chats Chat[] @relation("UsersChats")
-  chat  UsersChats[]
+  messages Message[]
 }
 
 model Chat {
   id    Int    @id @default(autoincrement())
-  messages Message[]
   name  String
+  private Boolean
+  messages Message[]
   users User[] @relation("UsersChats")
-  chat UsersChats[]
 }
 
 model Message {
   id      Int    @id @default(autoincrement())
   text    String
-  chat_id Int
-  chat    Chat   @relation(fields: [chat_id], references: [id])
-  user_id Int
-  user    User   @relation(fields: [user_id], references: [id])
+  chatId Int
+  userId Int
+  user    User   @relation(fields: [userId], references: [id])
+  chat    Chat   @relation(fields: [chatId], references: [id])
 }
 
-model UsersChats {
-  chat_id Int
-  user_id Int
-  chat    Chat @relation(fields: [chat_id], references: [id])
-  user    User @relation(fields: [user_id], references: [id])
-
-  @@id([chat_id, user_id])
-}
