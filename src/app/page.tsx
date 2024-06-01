@@ -3,10 +3,18 @@ import Image from "next/image";
 import '@styles/main.scss';
 import Button from "@ui/button";
 import AuthModal from "@ui/auth-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setShowModal(true);
+    }, 1500
+    )
+  }, []);
+
 
   return (
     <main className="content">
