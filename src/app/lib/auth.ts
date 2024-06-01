@@ -1,6 +1,4 @@
 import type { NextAuthOptions } from "next-auth";
-import { useSession } from "next-auth/react";
-import {redirect} from "next/navigation";
 import { PrismaClient  } from '@prisma/client'
 import bcrypt from "bcryptjs";
 

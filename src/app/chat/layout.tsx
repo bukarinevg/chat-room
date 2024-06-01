@@ -1,56 +1,31 @@
-"use client";
-
 import "@styles/chat.scss";
 import Sidenav from "@ui/sidenav";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { signOut } from "next-auth/react";
+import Header from "@/ui/header";
+
+import { SessionProvider } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@lib/auth";
 
 
-export default function Layout(
+
+export default async function Layout(
     { children }: { children: React.ReactNode }
 ){
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const toggleMenu = (state: boolean) => {
-      setIsMenuOpen(state);
-    };
-    const callbackUrl = "/";
+    const session = await getServerSession(authOptions);
     
     return(
         <>
-            <header onMouseLeave={() => toggleMenu(false)}  >
-                <div>
-                    <FontAwesomeIcon 
-                        icon={faPlus} 
-                        className="header__icon" 
-                    />
-                </div>
-                <div>
-                    <FontAwesomeIcon 
-                        icon={faUser} 
-                        className="header__icon" 
-                        onMouseEnter={() => toggleMenu(true)} 
-                    />
-                </div>
-                
-                {
-                    isMenuOpen && (
-                        <div className="header__menu">
-                            <a 
-                                onClick={() => signOut({ callbackUrl })}
-                                role="button"
-                            > Sign Out</a>
-                        </div>
-                    )
-                }
-            </header>
+        {/* <SessionProvider session={session}> */}
+            <Header 
+                email={session?.user?.email} 
+            />
             <main>
                 <Sidenav />
                 <div className="content">{children}</div>
             </main>
+        {/* </SessionProvider> */}
         </>
+
 
     )
 }

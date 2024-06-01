@@ -55,6 +55,8 @@ header{
             top: 7%;
             right: 0rem;
             background-color: rgba(51, 51, 51, 0.9);
+            display: flex;
+            flex-direction: column;
         }
     }
 }
