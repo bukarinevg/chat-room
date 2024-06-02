@@ -23,6 +23,8 @@ export default function Home() {
           <p className="chat__description__stack"> <span>STACK</span>: NEXT, SCSS, TS, POSTGRESSQL</p>
           <div className="chat__description__text">
             {/* This is a simple chat application that allows you to send messages to your friends. You can create a new chat room, invite your friends and start chatting. The application is built using Next.js, SCSS, TypeScript and PostgresSQL.  */}
+
+            
             <p>
               This is application that allows to create chatrooms with different users. 
             </p>

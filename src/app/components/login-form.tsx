@@ -50,11 +50,13 @@ export default function LoginForm() {
                 <Button className='login-form__submit' type='submit'>Login</Button>
                 <a
                     className="login-form__oauth"
-                    style={{ backgroundColor: "#ffffff", color: "gray" }}
                     onClick={() => signIn("google", { callbackUrl })}
                     role="button"
                 >
-                   <FontAwesomeIcon icon={faGoogle} className='login-form__oauth__icon' /> 
+                    <FontAwesomeIcon 
+                        icon={faGoogle} 
+                        className='login-form__oauth__icon' 
+                        /> 
                    Continue with Google
                 </a>
             </form>
