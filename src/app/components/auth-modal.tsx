@@ -1,5 +1,5 @@
-import Modal from "@ui/modal";
-import LoginForm from "@ui/login-form";
+import Modal from "@components/modal";
+import LoginForm from "@components/login-form";
 export default function AuthModal(
     {show, onClose}:  {
         show : boolean,

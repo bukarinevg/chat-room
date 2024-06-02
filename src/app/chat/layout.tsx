@@ -1,6 +1,6 @@
 import "@styles/chat.scss";
-import Sidenav from "@ui/sidenav";
-import Header from "@/ui/header";
+import Sidenav from "@components/sidenav";
+import Header from "@/components/header";
 
 import { SessionProvider } from "next-auth/react";
 import { getServerSession } from "next-auth";

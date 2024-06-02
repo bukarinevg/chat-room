@@ -1,8 +1,8 @@
 'use client';
 import Image from "next/image";
 import '@styles/main.scss';
-import Button from "@ui/button";
-import AuthModal from "@ui/auth-modal";
+import Button from "@components/button";
+import AuthModal from "@components/auth-modal";
 import { useEffect, useState } from "react";
 
 export default function Home() {

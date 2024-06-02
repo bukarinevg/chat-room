@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 
 
-import ChatForm from "../ui/chat-form";
-import ChatMessages from "../ui/chat-messages";
+import ChatForm from "../components/chat-form";
+import ChatMessages from "../components/chat-messages";
 
 
 
