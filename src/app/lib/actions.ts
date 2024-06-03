@@ -21,8 +21,8 @@ export async function oAuth(type: string){
 
 }
 
-export async function updateUser(user: UserInterface) {
-    
+export async function updateUser() {
+
 }
 
 
