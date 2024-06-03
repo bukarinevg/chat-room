@@ -1,4 +1,5 @@
 import { signIn } from "next-auth/react";
+import { UserInterface } from "./types";
 
 export async function oAuth(type: string){
     const callbackUrl = "/chat";
@@ -18,6 +19,10 @@ export async function oAuth(type: string){
         
     }
 
+}
+
+export async function updateUser(user: UserInterface) {
+    
 }
 
 

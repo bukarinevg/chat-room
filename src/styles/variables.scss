@@ -3,3 +3,18 @@ $lightPrimary: #f1f1f1;
 
 $srollBarThumb: #888;
 $scrollBarThumbHover: #555;
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+
+    box-sizing: border-box;
+    border: 2px solid ;
+    border-radius: 10px;
+
+    &:focus{
+        border: 2px solid #0f6cc9 !important;;
+       
+    }
+}

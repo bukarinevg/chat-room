@@ -1,0 +1,68 @@
+@import 'variables';
+
+.profile-panel{
+    padding: 1rem;
+    background-color: $lightPrimary;
+    border-radius: 2rem;
+
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        h2{
+            font-size: 1.5rem;
+        }
+
+        button{
+            background-color: $darkPrimary;
+            color:white;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+    }
+
+    @media screen and (min-width: 768px){
+        width: 50%;
+    }
+
+    @media screen and (min-width: 1024px){
+        width: 30%;
+    }
+
+    &__form{
+        &-group{
+            margin-bottom: 0.5rem;
+            display: flex;
+            flex-direction: column;
+
+            label{
+                &::after {
+                    content: ":";
+                }
+            }
+
+            input{
+                animation: slideIn 0.5s;
+
+                &:disabled{
+                    border:none;
+                    padding:0;
+                    // margin-top: 0.5rem;
+                }
+            }
+            
+
+            
+        }
+
+        &-button{
+            margin-top: 1rem;
+            background-color: $darkPrimary;
+            color:white;
+            padding: 0.5rem;
+        }
+    }
+    
+}

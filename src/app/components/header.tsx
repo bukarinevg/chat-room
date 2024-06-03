@@ -7,7 +7,14 @@ import { useState } from "react";
 import { signOut } from "next-auth/react";
 
 
-export default function Header({email} : {email: string | undefined | null }){
+export default function Header(
+    {id, email} : 
+    {
+        id?: string | null,
+        email: string | undefined | null,
+       
+     }
+){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = (state: boolean) => {
@@ -36,7 +43,7 @@ export default function Header({email} : {email: string | undefined | null }){
                 isMenuOpen && (
                     <div className="header__menu">
                         <a
-                            href={'/profile'}
+                            href={`/chat/profile/${id}`}
                         >
                             {email}
                         </a>

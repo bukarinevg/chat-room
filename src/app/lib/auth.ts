@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import { PrismaClient  } from '@prisma/client'
 import bcrypt from "bcryptjs";
-import { redirect } from 'next/navigation'
+import { UserSesionInterface } from "./types";
 
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -9,6 +9,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 
 const prisma = new PrismaClient();
+
 
 // Define authentication options using NextAuthOptions interface
 export const authOptions: NextAuthOptions = {
@@ -95,7 +96,29 @@ export const authOptions: NextAuthOptions = {
       
     //   return `${baseUrl}/${url}`;
     // }
+    async session({ session, user, token }): Promise<UserSesionInterface> {
+        const userModel = await prisma.user.findUnique({
+          where:{
+            email: session.user?.email?.toString()
+          }
+        });
+
+        if(userModel && userModel.email && userModel.id && userModel.name   ){
+          return {
+            user: {
+              id: userModel.id.toString(),
+              email: userModel.email,
+              name: userModel.name,
+            },
+            expires: session.expires, 
+          };
+        }
+
+        return session as UserSesionInterface;
+    },
   },
+  
+  
 };
 
 
