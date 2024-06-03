@@ -5,7 +5,7 @@ import { getToken } from 'next-auth/jwt';
 export async function middleware(req: NextRequest) {
   console.log('middleware', req.nextUrl.pathname);
 
-  let token = await getToken({ req, secret: process.env.NEXT_PUBLIC_SECRET });
+  let token = await getToken({ req, secret: process.env.SECRET });
 
   if(req.nextUrl.pathname.startsWith('/chat') && !token){
     const url = new URL('/', req.url);
