@@ -1,7 +1,7 @@
 'use client';
 
 import '@styles/login-form.scss';
-import { signIn } from "next-auth/react";
+import { oAuth } from '@/lib/actions';
 import { useState } from 'react';
 import {  useRouter } from 'next/navigation';
 import Button from './button';
@@ -29,8 +29,7 @@ export default function LoginForm() {
             setError('Wrong credentials');
         }
     }
-
-
+    
     return (
         <section className='login-form block'>
             <form
@@ -50,7 +49,10 @@ export default function LoginForm() {
                 <Button className='login-form__submit' type='submit'>Login</Button>
                 <a
                     className="login-form__oauth"
-                    onClick={() => signIn("google", { callbackUrl })}
+                    onClick={
+                        () => oAuth("google")
+
+                    }
                     role="button"
                 >
                     <FontAwesomeIcon 

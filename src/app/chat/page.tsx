@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 export default async function Page(){
     
 
-
     return (
      <section className="chat__window">
         <Suspense fallback={<p>Loading...</p>}>

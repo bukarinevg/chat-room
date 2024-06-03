@@ -1,6 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import { PrismaClient  } from '@prisma/client'
 import bcrypt from "bcryptjs";
+import { redirect } from 'next/navigation'
 
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -12,10 +13,9 @@ const prisma = new PrismaClient();
 // Define authentication options using NextAuthOptions interface
 export const authOptions: NextAuthOptions = {
   // Customize authentication pages
-  // pages: {
-  //   signIn: "/", // Redirect users to "/login" when signing in
-  // },
-  // Configure session management
+  pages: {
+    signIn: "/", // Redirect users to "/login" when signing in
+  },
   session: {
     strategy: "jwt", // Use JSON Web Tokens (JWT) for session management
   },
@@ -43,7 +43,6 @@ export const authOptions: NextAuthOptions = {
         });
 
         if(!dbUser) return null;
-
         const result =  await bcrypt.compare(credentials.password, dbUser?.password as string);
 
         if(result){
@@ -58,11 +57,9 @@ export const authOptions: NextAuthOptions = {
       }
     }), 
     GoogleProvider({
-      // Configure Google authentication provider with environment variables
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
-    
     // GitHubProvider({
     //   // Configure GitHub authentication provider with environment variables
     //   clientId: process.env.GITHUB_ID as string,
@@ -70,5 +67,36 @@ export const authOptions: NextAuthOptions = {
     // }),
     // CredentialsProvider({}), // Include a Credentials provider (username/password)
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      if(account?.provider =='google' && user.email ){
+        const userModel = await prisma.user.findUnique({
+          where:{
+            email: user.email
+          }
+        });
+
+        if(userModel){
+          return true;
+        }
+
+        console.log('new user');
+        const newUser = await prisma.user.create({
+          data:{
+            email: user.email,
+            name: user.name ?? 'John Doe'
+          }
+        });        
+        return true;
+      }
+      return true;
+    },
+    // async redirect({ url, baseUrl }) {
+      
+    //   return `${baseUrl}/${url}`;
+    // }
+  },
 };
+
+
 

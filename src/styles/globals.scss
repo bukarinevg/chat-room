@@ -1,3 +1,5 @@
+@import 'variables';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -63,15 +65,18 @@ div{
 .btn{
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  background-color: #f1f1f1;
-  color: #333;
+  background-color: $lightPrimary;
+  color: $darkPrimary;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .block{
-  background-color: #f1f1f1;;
+  background-color: $lightPrimary;;
   border-radius: 1rem;
   padding: 1rem;
 }
+
+
+
