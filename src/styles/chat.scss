@@ -1,4 +1,10 @@
 
+@import 'variables';
+
+body{
+    overflow: hidden;;
+}
+
 main{
     box-sizing: content-box;
     height: 93dvh;
@@ -31,7 +37,7 @@ header{
     box-sizing: content-box;
     color:white;
     height: 5dvh;
-    background-color: rgb(51, 51, 51);
+    background-color: $darkPrimary;
     padding: 0.5rem;
     display: flex;
     justify-content: space-between;
@@ -54,7 +60,9 @@ header{
             padding: 0.5rem;
             top: 7%;
             right: 0rem;
-            background-color: rgba(51, 51, 51, 0.9);
+            background-color: $darkPrimary;
+            display: flex;
+            flex-direction: column;
         }
     }
 }

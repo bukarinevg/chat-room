@@ -1,3 +1,5 @@
+@import 'variables';
+
 .chat-message{
     background: none;
     border: none;
@@ -32,7 +34,7 @@
 
     &__text{
         // height: 100%;
-        background: #f1f1f1;
+        background: $lightPrimary;
         padding: 1rem;
         border-radius: 0.5rem;
         font-size: 1rem;

@@ -1,3 +1,5 @@
+@import 'variables';
+
 .chat-messages{
     overflow-y: auto;
     max-height: 73vh;
@@ -8,15 +10,15 @@
     }
 
     &::-webkit-scrollbar-track {
-        background: #f1f1f1;
+        background: $lightPrimary;
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #888;
+        background: $srollBarThumb;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: $scrollBarThumbHover;
     }
 
     &:last-child{

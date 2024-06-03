@@ -1,11 +1,12 @@
+@import 'variables';
 
 .sidenav{
     position: relative;
-    background-color: #333;
+    background-color: $darkPrimary;
+
     color: white;
     transition: width 1s;
     font-size: 1rem;
-    padding: 1rem 0.5rem;
     overflow-y: auto;
     overflow-x: hidden;
     width: auto; 
@@ -16,6 +17,11 @@
         white-space:nowrap;
         text-overflow: ellipsis;
         cursor: pointer;
+    }
+
+    &__line{
+        border-top: 0.5px solid $lightPrimary;
+        margin-bottom: 0.5rem;	    
     }
     
    
@@ -28,26 +34,28 @@
     &__menu{
         white-space: nowrap; 
         flex: 1;
-        padding-right: 1rem;
+        padding: 0rem 0.5rem ;
         
     }
 
 
     /* Custom Scrollbar */
     &::-webkit-scrollbar {
+        
         width: 10px;
     }
 
     &::-webkit-scrollbar-track {
-        background: #f1f1f1;
+        background: $lightPrimary;
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #888;
+        border: none;
+        background: $srollBarThumb;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: $scrollBarThumbHover;
     }
 
     &:last-child{
@@ -55,6 +63,3 @@
     }
 
 }
-
-
-
