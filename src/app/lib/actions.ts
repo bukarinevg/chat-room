@@ -36,6 +36,9 @@ export async function updateUser(id:number, prevState: UpdateUserFormState, quer
         if(validatedFields.data.password){
             userObject.password = await bcrypt.hash(validatedFields.data.password, 10);
         }
+        else{
+            delete userObject.password;
+        }
         await prisma.user.update({
             where: {
                 id
