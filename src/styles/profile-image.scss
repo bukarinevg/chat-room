@@ -1,0 +1,30 @@
+@import 'variables.scss';
+
+.profile-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    border: 1px solid $lightPrimary;
+    background-color: $lightPrimary;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover{
+        transform: scale(1.1);
+    }
+
+    &__input{
+        display: none;
+    }
+
+    &__img{
+        border-radius: 50%;
+    }
+
+}

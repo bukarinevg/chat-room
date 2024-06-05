@@ -8,19 +8,12 @@
     &__header{
         display: flex;
         justify-content: space-between;
+        justify-content: center;
         align-items: center;
         margin-bottom: 1rem;
 
-        h2{
-            font-size: 1.5rem;
-        }
-
-        button{
-            background-color: $darkPrimary;
-            color:white;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-        }
+        font-size: large;
+        font-weight: bold;
     }
 
     @media screen and (min-width: 768px){
@@ -31,38 +24,55 @@
         width: 30%;
     }
 
-    &__form{
-        &-group{
-            margin-bottom: 0.5rem;
-            display: flex;
-            flex-direction: column;
-
-            label{
-                &::after {
-                    content: ":";
-                }
-            }
-
-            input{
-                animation: slideIn 0.5s;
-
-                &:disabled{
-                    border:none;
-                    padding:0;
-                    // margin-top: 0.5rem;
-                }
-            }
-            
-
-            
+    &__view-password{
+        animation: slideIn 0.5s;    
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        label{
+            width: fit-content;
+        }
+        input{
+            margin-left: 0.5rem;
+            width: auto;
+            height: 1rem;
         }
 
-        &-button{
-            margin-top: 1rem;
-            background-color: $darkPrimary;
-            color:white;
-            padding: 0.5rem;
-        }
     }
-    
+
+    &__form-group{
+        animation: fadeIn 1s;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        label{
+            &::after {
+                content: ":";
+            }
+        }
+
+        input{
+            animation: slideIn 0.5s;
+
+            // &:disabled{
+            //     // border:none;
+            //     // padding:0;
+            //     // margin-top: 0.5rem;
+            // }
+        }       
+    }
+
+    &__form-button{
+        margin-top: 1rem;
+        background-color: $darkPrimary;
+        color:white;
+        padding: 0.5rem;
+    }
+
+    &__error{
+        color: red;
+        font-size: small;
+    }
 }

@@ -60,7 +60,8 @@ div{
     to {
       transform: translateX(0);
     }
-  }
+}
+
 
 .btn{
   padding: 0.5rem 1rem;
@@ -80,3 +81,11 @@ div{
 
 
 
+
+.button{
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.5rem;
+  cursor: pointer;
+}

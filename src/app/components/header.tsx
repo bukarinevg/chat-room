@@ -1,6 +1,7 @@
 "use client";
 
 import "@styles/chat.scss";
+import Button from "@components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -32,25 +33,31 @@ export default function Header(
                 />
             </div>
             <div>
-                <FontAwesomeIcon 
-                    icon={faUser} 
-                    className="header__icon" 
-                    onMouseEnter={() => toggleMenu(true)} 
-                />
+                <a
+                    href={`/chat/profile/${id}`}
+                >
+                    <FontAwesomeIcon 
+                        icon={faUser} 
+                        className="header__icon" 
+                        onMouseEnter={() => toggleMenu(true)} 
+                    />
+                </a>
             </div>
             
             {
                 isMenuOpen && (
                     <div className="header__menu">
                         <a
+                            className="button"
                             href={`/chat/profile/${id}`}
                         >
                             {email}
                         </a>
                         <a 
+                        className="button header__menu__sign-out"
                             onClick={() => signOut({ callbackUrl })}
-                            role="button"
-                        > Sign Out</a>
+                        > Sign Out
+                        </a>
                     </div>
                 )
             }
