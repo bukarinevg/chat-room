@@ -1,6 +1,7 @@
 'use client'
 import '@styles/profile-panel.scss';
 import Button from '@components/button';
+
 import {TailSpin} from 'react-loader-spinner';
 import { updateUser } from '@/lib/actions';
 import { UserInfo } from '@/lib/types';
