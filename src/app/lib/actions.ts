@@ -1,31 +1,10 @@
 'use server';
 
 import { PrismaClient } from "@prisma/client";
-import { signIn } from "next-auth/react";
 import { permanentRedirect } from 'next/navigation'
 import { z } from 'zod';
 
 const prisma= new PrismaClient();
-
-// export async function oAuth(type: string){
-//     console.log('oAuth');
-//     const callbackUrl = "/profile";
-//     if(type === 'google'){
-//         await signIn("google", { 
-//             callbackUrl,
-//             redirect: false
-//          });
-//     }
-//     else if(type === 'github'){
-//         await signIn("github", { 
-//             callbackUrl,
-//             redirect: false
-//         });
-//     }
-//     else{        
-//     }
-// }
-
 
 type UpdateUserFormState = {
     errors?: {
@@ -45,7 +24,6 @@ export async function updateUser(id:number, prevState: UpdateUserFormState, quer
     const validatedFields = UpdateUserSchema.safeParse({
         name: queryData.get('name'),
         password: queryData.get('password')
-    
     });
 
     if(validatedFields.success){
@@ -53,8 +31,8 @@ export async function updateUser(id:number, prevState: UpdateUserFormState, quer
             name: validatedFields.data.name,
             password: validatedFields.data.password
         
-        };
-
+        }
+        console.log('update');
         await prisma.user.update({
             where: {
                 id
@@ -63,9 +41,7 @@ export async function updateUser(id:number, prevState: UpdateUserFormState, quer
         });
 
         permanentRedirect('/chat');
-        // prisma.user.update();
     }
-
     return {
         message:null,
         // message: 'Fix the fields issues',

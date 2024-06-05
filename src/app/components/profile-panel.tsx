@@ -1,6 +1,7 @@
 'use client'
 import '@styles/profile-panel.scss';
 import Button from '@components/button';
+import {TailSpin} from 'react-loader-spinner';
 import { updateUser } from '@/lib/actions';
 import { UserInfo } from '@/lib/types';
 import { useState } from 'react';
@@ -13,9 +14,11 @@ export default function ProfilePanel(
     {user: UserInfo}
 ){
     const [viewPassword, setViewPassword] = useState(false);
+    const [edit, setEdit ] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const updateUserWithId = updateUser.bind(null, user.id);
-    
-    const [state, dispatch, isPending] = useFormState(updateUserWithId ,{
+    const [state, dispatch] = useFormState(updateUserWithId ,{
         message: null,
         errors: {
             name: [''],
@@ -24,16 +27,17 @@ export default function ProfilePanel(
     }
     );
 
-    const [edit, setEdit ] = useState(
-        // true
-        state.message !== null
-    );
-    
+
 
     const handleFormState = () => {
-        setTimeout(() => {
-            setEdit(!edit);
-        }, 500)
+        if(edit){
+            setLoading(true);
+        }
+        else{
+            setTimeout(() => {
+                setEdit(!edit);
+            }, 500);
+        }
     };
 
     const handlePasswordInput = () => {
@@ -49,12 +53,34 @@ export default function ProfilePanel(
             </h2>
            
             <section className='profile-panel__menu'>
-                <form className='profile-panel__form' action={dispatch}>
+                {
+                    loading &&
+                    <TailSpin
+                        height="100%"
+                        width="100%"
+                        color="gray"
+                        ariaLabel="tail-spin-loading"
+                        radius={1}
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                    />
+                }
+                <form 
+                    className='profile-panel__form' 
+                    action={dispatch}  
+                    onSubmit={
+                        () => handleFormState()
+                    }
+                    style={
+                        {display: loading ? 'none' : 'block'}
+                    }
+                >
                     <div className='profile-panel__form-group'>
                         <label 
                             htmlFor='email'
                         >User</label>
                         <input 
+                            className='no-text-decoration'
                             type='email' 
                             id='email' 
                             name='email' 
@@ -87,7 +113,6 @@ export default function ProfilePanel(
                         }
                     </div>
                    
-                    
                     {
                         edit && 
  
@@ -126,9 +151,9 @@ export default function ProfilePanel(
 
                     }
                     <Button 
-                        disabled={ isPending }
+                        disabled={ loading }
                         onClick={
-                            !edit ? () => handleFormState() : () => {}
+                             !edit ? () => handleFormState() : () => {}
                         } 
                         className='profile-panel__form-button' 
                         type={
