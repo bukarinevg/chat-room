@@ -1,4 +1,4 @@
-export interface UserSesionInterface{
+export type UserSesionInterface = {
     user: 
     { 
       id: string; 
@@ -8,9 +8,10 @@ export interface UserSesionInterface{
     expires: string; 
 }
 
-export interface UserInterface{
-    id: string;
+export type UserInfo = {
+    id: number;
     email: string;
     name: string;
-    password: string;
+    password?: string;
 }
+

@@ -1,12 +1,34 @@
 'use client'
 import '@styles/profile-panel.scss';
+import Button from '@components/button';
+import { updateUser } from '@/lib/actions';
+import { UserInfo } from '@/lib/types';
+import { useState } from 'react';
+import { useFormState } from 'react-dom';
 
-import { useEffect, useState } from 'react';
-import Button from './button';
 
-export default function ProfilePanel(){
-    const [edit, setEdit ] = useState(false);
+
+export default function ProfilePanel(
+    {user}:
+    {user: UserInfo}
+){
     const [viewPassword, setViewPassword] = useState(false);
+    const updateUserWithId = updateUser.bind(null, user.id);
+    
+    const [state, dispatch, isPending] = useFormState(updateUserWithId ,{
+        message: null,
+        errors: {
+            name: [''],
+            password: ['']
+        }
+    }
+    );
+
+    const [edit, setEdit ] = useState(
+        // true
+        state.message !== null
+    );
+    
 
     const handleFormState = () => {
         setTimeout(() => {
@@ -20,13 +42,26 @@ export default function ProfilePanel(){
 
     return (
         <div className='profile-panel'>
-            <h1 className='profile-panel__header'>
+            <h2 className='profile-panel__header'>
                 {
                     edit ? 'Edit Profile' : 'Profile'
                 }
-            </h1>
+            </h2>
+           
             <section className='profile-panel__menu'>
-                <form className='profile-panel__form'>
+                <form className='profile-panel__form' action={dispatch}>
+                    <div className='profile-panel__form-group'>
+                        <label 
+                            htmlFor='email'
+                        >User</label>
+                        <input 
+                            type='email' 
+                            id='email' 
+                            name='email' 
+                            disabled={ true } 
+                            value={ user.email }
+                        />
+                    </div>
                     <div className='profile-panel__form-group'>
                         <label 
                             htmlFor='name'
@@ -36,38 +71,64 @@ export default function ProfilePanel(){
                             id='name' 
                             name='name' 
                             disabled={ !edit } 
-                            value={ 'name'}
+                            defaultValue={  user.name }
+                            placeholder={ 'Enter new name'}
                         />
-                    </div>
-                    <div 
-                        style={
-                            edit ? {overflow:'auto'} : {}
+                        {
+                            state.errors?.name && 
+                            state.errors.name.length > 0 &&
+                                <div className='profile-panel__error'>
+                                    {
+                                        state.errors.name.map((error, index) => (
+                                            <p key={index}>{error}</p>
+                                        ))
+                                    }
+                                </div>
                         }
-                        className='profile-panel__form-group'
-                    >
-                        <label htmlFor='email'>Email</label>
-                        <input 
-                            type='email' 
-                            id='email' 
-                            name='email' 
-                            disabled={ !edit }
-                            value={ 'emaiaasddwasdsdsdl@mail.ru' }
-                        />
                     </div>
+                   
                     
-                    <div className='profile-panel__form-group'>
-                        <label htmlFor='password'>Password</label>
-                        <input 
-                            type='password' 
-                            id='password' 
-                            name='password' 
-                            disabled={ !edit }
-                            value={ 'password' }
-                        />
-                    </div>
+                    {
+                        edit && 
+ 
+                        <div className='profile-panel__form-group'>
+                            <label htmlFor='password'>Password</label>
+                            <input 
+                                type={ viewPassword ? 'text' : 'password'} 
+                                id='password' 
+                                name='password' 
+                                placeholder='New password'
+                            />
+                            <div className='profile-panel__view-password'>
+                                <label 
+                                    htmlFor='view-password' 
+                                    className='profile-panel__view-password-label'
+                                >View password</label>
+                                <input 
+                                    type='checkbox' 
+                                    id='view-password' 
+                                    className='' 
+                                    onChange={ () => handlePasswordInput() }
+                                />
+                            </div>
+                            {
+                                state.errors?.password &&
+                                state.errors.password.length > 0 &&
+                                <div className='profile-panel__error'>
+                                    {
+                                        state.errors.password.map((error, index) => (
+                                            <p key={index}>{error}</p>
+                                        ))
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                    }
                     <Button 
+                        disabled={ isPending }
                         onClick={
-                           () => handleFormState()
+                            !edit ? () => handleFormState() : () => {}
                         } 
                         className='profile-panel__form-button' 
                         type={
