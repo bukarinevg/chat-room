@@ -90,12 +90,9 @@ export const authOptions: NextAuthOptions = {
         });        
         return true;
       }
+
       return true;
     },
-    // async redirect({ url, baseUrl }) {
-      
-    //   return `${baseUrl}/${url}`;
-    // }
     async session({ session, user, token }): Promise<UserSesionInterface> {
         const userModel = await prisma.user.findUnique({
           where:{

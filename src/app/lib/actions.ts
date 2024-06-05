@@ -3,6 +3,7 @@
 import { PrismaClient } from "@prisma/client";
 import { permanentRedirect } from 'next/navigation'
 import { z } from 'zod';
+import bcrypt from "bcryptjs";
 
 const prisma= new PrismaClient();
 
@@ -32,7 +33,9 @@ export async function updateUser(id:number, prevState: UpdateUserFormState, quer
             password: validatedFields.data.password
         
         }
-        console.log('update');
+        if(validatedFields.data.password){
+            userObject.password = await bcrypt.hash(validatedFields.data.password, 10);
+        }
         await prisma.user.update({
             where: {
                 id
