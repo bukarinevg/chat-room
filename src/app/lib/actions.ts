@@ -7,25 +7,24 @@ import { z } from 'zod';
 
 const prisma= new PrismaClient();
 
-export async function oAuth(type: string){
-    const callbackUrl = "/chat";
-    if(type === 'google'){
-        await signIn("google", { 
-            callbackUrl,
-            redirect: false
-         });
-    }
-    else if(type === 'github'){
-        await signIn("github", { 
-            callbackUrl,
-            redirect: false
-        });
-    }
-    else{
-        
-    }
-
-}
+// export async function oAuth(type: string){
+//     console.log('oAuth');
+//     const callbackUrl = "/profile";
+//     if(type === 'google'){
+//         await signIn("google", { 
+//             callbackUrl,
+//             redirect: false
+//          });
+//     }
+//     else if(type === 'github'){
+//         await signIn("github", { 
+//             callbackUrl,
+//             redirect: false
+//         });
+//     }
+//     else{        
+//     }
+// }
 
 
 type UpdateUserFormState = {

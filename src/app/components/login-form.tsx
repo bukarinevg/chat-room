@@ -2,7 +2,6 @@
 
 import '@styles/login-form.scss';
 import { signIn } from 'next-auth/react';
-import { oAuth } from '@/lib/actions';
 import { useState } from 'react';
 import {  useRouter } from 'next/navigation';
 import Button from './button';
@@ -51,7 +50,11 @@ export default function LoginForm() {
                 <a
                     className="login-form__oauth"
                     onClick={
-                        () => oAuth("google")
+                        () => 
+                            signIn("google", { 
+                                callbackUrl,
+                                redirect: false
+                        })
 
                     }
                     role="button"
