@@ -3,7 +3,7 @@
 import '@styles/profile-image.scss';
 import React, { useRef, useState } from 'react';
 
-export default function ProfileImage({id} : {id : number}){
+export default function ProfileImage({id} : {id : string}){
     const [file, setFile] = useState('https://via.placeholder.com/150');
 
     function handleChange(e : React.ChangeEvent<HTMLInputElement>) {
