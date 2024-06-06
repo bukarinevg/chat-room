@@ -5,14 +5,10 @@ const nextConfig = {
           {
             protocol: 'http',
             hostname: 'localhost:3000',
-            port: '',
-            pathname: '',
           },
           {
             protocol: 'https',
             hostname: 'https://chat-room-chi-seven.vercel.app/',
-            port: '',
-            pathname: '',
           }
         ],
       },
