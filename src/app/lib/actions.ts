@@ -76,6 +76,7 @@ export async function saveProfileImage(
         console.log('cwd', process.cwd());
         console.log('dirname', __dirname);
         console.log('path',filePath);
+        console.log('dir', fs.readdirSync(process.cwd()));
 
         if(!fs.existsSync(uploadDir)){
             fs.mkdirSync(uploadDir);
