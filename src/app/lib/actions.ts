@@ -68,6 +68,8 @@ export async function saveProfileImage(
         const extension = path.extname(file.name);
         const fileName = `${id}${extension}`;
         const filePath = path.join(process.cwd(), 'public', 'images', fileName);
+        console.log('cwd', process.cwd());
+        console.log('dirname', __dirname);
         console.log('path',filePath);
         await file.arrayBuffer().then((data) => {
             require('fs').writeFileSync(filePath, Buffer.from(data));
