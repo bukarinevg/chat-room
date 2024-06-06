@@ -9,7 +9,8 @@ const nextConfig = {
           {
             protocol: 'https',
             hostname: 'https://chat-room-chi-seven.vercel.app/',
-          }
+            pathname: '/_next/server/',
+          },
         ],
       },
 };
