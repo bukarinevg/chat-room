@@ -8,6 +8,12 @@ const nextConfig = {
             port: '',
             pathname: '',
           },
+          {
+            protocol: 'https',
+            hostname: 'https://chat-room-chi-seven.vercel.app/',
+            port: '',
+            pathname: '',
+          }
         ],
       },
 };
