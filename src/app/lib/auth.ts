@@ -1,4 +1,11 @@
 import type { NextAuthOptions } from "next-auth";
+import type {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
+import { getServerSession } from "next-auth";
+
 import { PrismaClient  } from '@prisma/client'
 import bcrypt from "bcryptjs";
 import { UserSesionInterface } from "./types";
@@ -7,8 +14,9 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-
 const prisma = new PrismaClient();
+
+
 
 
 // Define authentication options using NextAuthOptions interface
@@ -119,4 +127,12 @@ export const authOptions: NextAuthOptions = {
 };
 
 
-
+// Use it in server contexts
+export function auth(
+  ...args:
+    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return getServerSession(...args, authOptions)
+}

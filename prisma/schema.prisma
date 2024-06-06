@@ -22,6 +22,7 @@ model User {
   password String?
   chats Chat[] @relation("UsersChats")
   messages Message[]
+  image String?
 }
 
 model Chat {

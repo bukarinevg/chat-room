@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { permanentRedirect } from 'next/navigation'
 import { z } from 'zod';
 import bcrypt from "bcryptjs";
+import path from "path";
 
 const prisma= new PrismaClient();
 
@@ -54,4 +55,31 @@ export async function updateUser(id:number, prevState: UpdateUserFormState, quer
         errors: validatedFields?.error?.flatten().fieldErrors,
     };
 
+}
+
+
+
+export async function saveProfileImage(
+    id:string, prevState: {}, queryData: FormData
+){
+    const file = queryData.get('profileImage');
+    
+    if(file instanceof File) {
+        const extension = path.extname(file.name);
+        const fileName = `${id}${extension}`;
+        const filePath = path.join(process.cwd(), 'public', 'images', fileName);
+        await file.arrayBuffer().then((data) => {
+            require('fs').writeFileSync(filePath, Buffer.from(data));
+        });
+        await prisma.user.update({
+            where: {
+                id: parseInt(id)
+            },
+            data: {
+                image: fileName
+            }
+        });
+    }
+    permanentRedirect(`/chat/profile/${id}`);
+    return {};
 }
