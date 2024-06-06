@@ -62,17 +62,26 @@ export async function updateUser(id:number, prevState: UpdateUserFormState, quer
 export async function saveProfileImage(
     id:string, prevState: {}, queryData: FormData
 ){
+    const fs= require('fs');
     const file = queryData.get('profileImage');
+    
     
     if(file instanceof File) {
         const extension = path.extname(file.name);
         const fileName = `${id}${extension}`;
+        const uploadDir = path.join(process.cwd(), 'public', 'images');
         const filePath = path.join(process.cwd(), 'public', 'images', fileName);
+
+
         console.log('cwd', process.cwd());
         console.log('dirname', __dirname);
         console.log('path',filePath);
+
+        if(!fs.existsSync(uploadDir)){
+            fs.mkdirSync(uploadDir);
+        }
         await file.arrayBuffer().then((data) => {
-            require('fs').writeFileSync(filePath, Buffer.from(data));
+            fs.writeFileSync(filePath, Buffer.from(data));
         });
         await prisma.user.update({
             where: {
