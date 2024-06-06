@@ -23,6 +23,7 @@
       "@styles/*": ["./src/styles/*"],
       "@context/*": ["./src/context/*"],
       "@lib/*": ["./src/app/lib/*"],
+      "@public/*" : ["./public/*"],
       // "@prisma": ["./prisma"],
 
     }

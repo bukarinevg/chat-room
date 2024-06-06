@@ -4,11 +4,7 @@ import Header from "@/components/header";
 
 import { UserSesionInterface } from "@/lib/types";
 import { authOptions } from "@lib/auth";
-import { SessionProvider } from "next-auth/react";
 import { getServerSession } from "next-auth";
-import { Console } from "console";
-
-
 
 export default async function Layout(
     { children }: { children: React.ReactNode }
@@ -17,9 +13,7 @@ export default async function Layout(
     if(!session || !session?.user || !session?.user?.id ){
         return null;
     }
-    const id = session.user.id;
-    console.log(session);
-    
+    const id = session.user.id;    
     return(
         <>
         {/* <SessionProvider session={session}> */}
