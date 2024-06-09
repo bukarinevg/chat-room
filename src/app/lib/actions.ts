@@ -105,6 +105,7 @@ export async function updateProfileImage(
         });
     }
     permanentRedirect(`/chat/profile/${id}`);
+    return {};
 }
 
 type CreateChatFormState = {
