@@ -4,12 +4,13 @@ import React from 'react';
 
 
 export default function Modal (
-  { children, show, onClose, title } : 
+  { children, show, onClose, title, className, ...rest} : 
   {
     children: React.ReactNode, 
     show: boolean, 
     onClose: () => void,
-    title?: string
+    title?: string,
+    className?:string
   }){
     
   if (!show) {
@@ -23,7 +24,7 @@ export default function Modal (
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal"  onClick={stopPropagation}>
+      <div className={`modal ${className}`}  onClick={stopPropagation}>
         <div className='modal-header'> 
           {title?? 'Modal'} 
           <button onClick={onClose}>X</button>
@@ -34,6 +35,7 @@ export default function Modal (
       </div>
       <style jsx>{`
         .modal-backdrop {
+          z-index: 1;
           position: fixed;
           top: 0;
           left: 0;

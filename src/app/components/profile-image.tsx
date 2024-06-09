@@ -3,7 +3,7 @@
 import '@styles/profile-image.scss';
 import logo from '@public/next.svg';
 import React, { useEffect, useRef, useState } from 'react';
-import { saveProfileImage } from '@/lib/actions';
+import { updateProfileImage } from '@/lib/actions';
 import { useFormState } from 'react-dom';
 import Image from 'next/image'
 
@@ -16,8 +16,8 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
     const [file, setFile] = useState(image ?? logo);
 
     console.log(file);
-    const saveProfileImageWithId = saveProfileImage.bind(null, id);
-    const [state, dispatch] = useFormState(saveProfileImageWithId, {});
+    const updateProfileImageWithId = updateProfileImage.bind(null, id);
+    const [state, dispatch] = useFormState(updateProfileImageWithId, {});
     const imageForm = useRef<HTMLFormElement>(null);
 
     function handleChange(e : React.ChangeEvent<HTMLInputElement>) {

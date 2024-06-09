@@ -1,11 +1,12 @@
 "use client";
 
 import "@styles/chat.scss";
-import Button from "@components/button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import HeaderAddChat from "@components/header-add-chat";
+
 import { signOut } from "next-auth/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 
 export default function Header(
@@ -21,17 +22,16 @@ export default function Header(
     const toggleMenu = (state: boolean) => {
       setIsMenuOpen(state);
     };
+
+
     const callbackUrl = "/";
 
     
     return(
         <header onMouseLeave={() => toggleMenu(false)}  >
-            <div>
-                <FontAwesomeIcon 
-                    icon={faPlus} 
-                    className="header__icon" 
-                />
-            </div>
+            <HeaderAddChat />
+
+            
             <div>
                 <a
                     href={`/chat/profile/${id}`}
