@@ -10,7 +10,7 @@ export default function Modal (
     show: boolean, 
     onClose: () => void,
     title?: string,
-    className:string
+    className?:string
   }){
     
   if (!show) {
