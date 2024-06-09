@@ -17,16 +17,26 @@ type UpdateUserFormState = {
 }
 
 const UpdateUserSchema = z.object({
-    name: z.string().min(3).max(20),
-    password: z.string().min(8).optional().or(z.literal('')), 
+    name: z.string().min(3, 
+        {message: 'Name should at least 3 symbols'}
+    ).max(20),
+    password: z.string().min(8,
+        {message: 'Password should at least 8 symbols'}
+    ).optional().or(z.literal('')), 
 });
 
   
-export async function updateUser(id:number, prevState: UpdateUserFormState, queryData: FormData) {
+export async function updateUser(
+    id:number, 
+    prevState: UpdateUserFormState, 
+    queryData: FormData
+) {
     const validatedFields = UpdateUserSchema.safeParse({
         name: queryData.get('name'),
         password: queryData.get('password')
     });
+
+    console.log('error', validatedFields?.error?.flatten().fieldErrors);
 
     if(validatedFields.success){
         const userObject = {
@@ -59,8 +69,10 @@ export async function updateUser(id:number, prevState: UpdateUserFormState, quer
 
 
 
-export async function saveProfileImage(
-    id:string, prevState: {}, queryData: FormData
+export async function updateProfileImage(
+    id:string, 
+    prevState: {}, 
+    queryData: FormData
 ){
     const fs= require('fs');
     const file = queryData.get('profileImage');
@@ -71,7 +83,6 @@ export async function saveProfileImage(
         const fileName = `${id}${extension}`;
         const uploadDir = path.join(process.cwd(), 'public', 'images');
         const filePath = path.join(process.cwd(), 'public', 'images', fileName);
-
 
         console.log('cwd', process.cwd());
         console.log('dirname', __dirname);
@@ -94,5 +105,60 @@ export async function saveProfileImage(
         });
     }
     permanentRedirect(`/chat/profile/${id}`);
-    return {};
+}
+
+type CreateChatFormState = {
+    errors?: {
+        name?: string[],
+        users?: string[],
+    },
+    message: string | null | undefined;
+
+}
+
+const CreateChatSchema = z.object({
+    name: z.string().min(3,{
+        message: 'Name should at least 3 symbols'
+    }).max(20),
+    private: z.string().optional().nullable(),
+    users: z.array(z.string().min(1,  
+        {message: 'Please select at least one user'}
+    ),) ,
+});
+
+export async function createChat(
+    prevState: CreateChatFormState,
+    queryData: FormData
+) : Promise<CreateChatFormState>{
+
+    console.log('users' , queryData.getAll('users'));
+    const validatedFields = CreateChatSchema.safeParse({
+        name: queryData.get('name'),
+        private: queryData.get('private'),
+        users: queryData.getAll('users'),
+    })
+
+    console.log('after parse', queryData);
+
+    if(validatedFields.success){
+        
+        // const result =  await prisma.chat.create({
+        //     data: {
+        //         name: validatedFields.data.name,
+        //         private: validatedFields.data.private === '1',
+        //         users: {
+        //             connect: 
+        //             validatedFields.data.users.map(
+        //                 (userId) => 
+        //                 ({id: parseInt(userId)})
+        //             )
+        //         }
+        //     }
+        // });
+        
+    }
+    return {
+        message: 'Fix the fields issues',
+        errors: validatedFields?.error?.flatten().fieldErrors,
+    };
 }

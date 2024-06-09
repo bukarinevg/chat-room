@@ -1,11 +1,11 @@
 'use client'
 import '@styles/profile-panel.scss';
 import Button from '@components/button';
-
-import { TailSpin } from 'react-loader-spinner';
 import { updateUser } from '@/lib/actions';
 import { UserInfo } from '@/lib/types';
-import { useState } from 'react';
+
+import { TailSpin } from 'react-loader-spinner';
+import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 
 
@@ -22,14 +22,17 @@ export default function ProfilePanel(
     const [state, dispatch] = useFormState(updateUserWithId ,{
         message: null,
         errors: {
-            name: [''],
-            password: ['']
+            name: [],
+            password: []
         }
     }
     );
 
-
-
+    useEffect(() => {
+        if(state.errors){
+            setLoading(false);
+        }
+    }, [state.errors]);
     const handleFormState = () => {
         if(edit){
             setLoading(true);
@@ -104,7 +107,7 @@ export default function ProfilePanel(
                         {
                             state.errors?.name && 
                             state.errors.name.length > 0 &&
-                                <div className='profile-panel__error'>
+                                <div className='error'>
                                     {
                                         state.errors.name.map((error, index) => (
                                             <p key={index}>{error}</p>
@@ -125,7 +128,7 @@ export default function ProfilePanel(
                                 name='password' 
                                 placeholder='New password'
                             />
-                            <div className='profile-panel__view-password'>
+                            <div className='profile-panel__view-password checkbox'>
                                 <label 
                                     htmlFor='view-password' 
                                     className='profile-panel__view-password-label'
@@ -140,7 +143,7 @@ export default function ProfilePanel(
                             {
                                 state.errors?.password &&
                                 state.errors.password.length > 0 &&
-                                <div className='profile-panel__error'>
+                                <div className='error'>
                                     {
                                         state.errors.password.map((error, index) => (
                                             <p key={index}>{error}</p>
@@ -156,7 +159,7 @@ export default function ProfilePanel(
                         onClick={
                              !edit ? () => handleFormState() : () => {}
                         } 
-                        className='profile-panel__form-button' 
+                        className='btn-primary profile-panel__form-button' 
                         type={
                             edit ? 'submit' : 'button'
                         }

@@ -89,3 +89,43 @@ div{
   padding: 0.5rem;
   cursor: pointer;
 }
+
+.checkbox{
+  display: flex !important;
+  justify-content: flex-start !important; 
+  align-items: center !important;
+  flex-direction: row !important;
+  label{
+      width: fit-content !important;
+  }
+  input{
+      margin-left: 0.5rem !important;
+      width: auto !important;
+      height: 1rem !important;
+      background-color: $lightPrimary !important;
+  }
+}
+
+.btn-primary{
+  margin: 0.5rem 0;
+  background-color: $darkPrimary;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  opacity: 0.9;
+
+  &:hover{
+    opacity: 1;
+  }
+}
+
+.error{
+    width:100%;
+    color: red;
+    font-weight: bold;
+    margin-bottom: 1rem;
+
+}
