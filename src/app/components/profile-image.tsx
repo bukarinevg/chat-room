@@ -48,15 +48,6 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
                     name='profileImage'
                     type="file"  
                     className="profile-image__input"
-                    // style={{
-                    //     position: 'absolute',
-                    //     width: '100%',
-                    //     height: '100%',
-                    //     opacity: 0,
-                    //     top: 0,
-                    //     left: 0,
-                        
-                    // }}
                     accept="image/*"
                 />
             </form>

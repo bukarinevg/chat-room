@@ -10,11 +10,20 @@ import Select, { StylesConfig } from "react-select";
 import makeAnimated from 'react-select/animated';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { UserDetails } from "@/lib/types";
 
 
 const animatedComponents = makeAnimated()
 
-export default function HeaderAddChat(){
+export default function AddChat(
+    {
+        users
+    }
+    :{
+        users?: UserDetails[]
+    
+    }
+){
     const [ showModal, setShowModal ] = useState(false);
 
     const [ state, dispatch ] = useFormState(createChat, {
@@ -29,13 +38,21 @@ export default function HeaderAddChat(){
         setShowModal(true);
     }
 
-    let options = [
-        { value: 1, label: 'User 1' },
-        { value: 2, label: 'User 2' },
-        { value: 3, label: 'User 3' },
-        { value: 4, label: 'User 4' },
-        { value: 5, label: 'User 5' },
-    ];
+    let options = users?.map(user => 
+        {
+            return {
+                value: user.id,
+                label: user.name
+            };
+        }
+    );
+    // let options = [
+    //     { value: 1, label: 'User 1' },
+    //     { value: 2, label: 'User 2' },
+    //     { value: 3, label: 'User 3' },
+    //     { value: 4, label: 'User 4' },
+    //     { value: 5, label: 'User 5' },
+    // ];
 
     return (
         <div className="add-chat">
