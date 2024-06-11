@@ -20,5 +20,21 @@ export type UserDetails = {
   id: number;
   email: string;
   name: string;
-  image?: string;
+  image?: string|null;
+}
+
+export type Chat = {
+    id: number;
+    name: string;
+    private : boolean;
+    users?: UserDetails[];
+    messages?: Message[];
+}
+
+export type Message = {
+    id: number;
+    chatId: number;
+    userId: number;
+    text: string;
+    createdAt: Date;
 }

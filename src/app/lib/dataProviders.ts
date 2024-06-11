@@ -24,3 +24,19 @@ export const getUserById = async (id: number) => {
         }
     });
 }
+
+export const getChats = async () => {
+    return prisma.chat.findMany();
+}
+
+export const getChatById = async (id: string) => {
+    return prisma.chat.findUnique({
+        where: {
+            id: Number(id),
+        },
+        include: {
+            users: true,
+            messages: true,
+        },
+    });
+}

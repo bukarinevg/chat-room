@@ -14,8 +14,6 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
 
     }
     const [file, setFile] = useState(image ?? logo);
-
-    console.log(file);
     const updateProfileImageWithId = updateProfileImage.bind(null, id);
     const [state, dispatch] = useFormState(updateProfileImageWithId, {});
     const imageForm = useRef<HTMLFormElement>(null);

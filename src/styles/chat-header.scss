@@ -1,0 +1,29 @@
+@import 'variables';
+.chat{
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid $darkPrimary;
+        background-color: $lightPrimary;
+        font-size: 1rem;
+        color:$darkPrimary;
+        .chat-header__title{
+            margin: 0;
+        }
+        .chat-header__actions{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        &__left{
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 0.5rem;
+            &__icon{
+                margin-left: 0.2rem;
+            }
+        }
+    }
+}

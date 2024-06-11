@@ -4,13 +4,14 @@ import { createChat } from "@/lib/actions";
 import Modal from "@components/modal";
 import Button from "@components/button"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormState } from 'react-dom';
 import Select, { StylesConfig } from "react-select";
 import makeAnimated from 'react-select/animated';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { UserDetails } from "@/lib/types";
+import { TailSpin } from "react-loader-spinner";
 
 
 const animatedComponents = makeAnimated()
@@ -25,6 +26,7 @@ export default function AddChat(
     }
 ){
     const [ showModal, setShowModal ] = useState(false);
+    const [ loading, setLoading ] = useState(false);
 
     const [ state, dispatch ] = useFormState(createChat, {
         message: null,
@@ -38,6 +40,19 @@ export default function AddChat(
         setShowModal(true);
     }
 
+
+    useEffect(() => {
+        setLoading(false);
+        if(! state?.errors){
+            setShowModal(false);
+        }
+    }, [state?.message]);
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true);
+    }
+
+
     let options = users?.map(user => 
         {
             return {
@@ -46,13 +61,6 @@ export default function AddChat(
             };
         }
     );
-    // let options = [
-    //     { value: 1, label: 'User 1' },
-    //     { value: 2, label: 'User 2' },
-    //     { value: 3, label: 'User 3' },
-    //     { value: 4, label: 'User 4' },
-    //     { value: 5, label: 'User 5' },
-    // ];
 
     return (
         <div className="add-chat">
@@ -68,7 +76,25 @@ export default function AddChat(
                 onClose={() => setShowModal(false)}
                 title="Add Chat"
             >
-                <form action={dispatch}>
+                 {
+                    loading &&
+                    <TailSpin
+                        height="100%"
+                        width="100%"
+                        color="gray"
+                        ariaLabel="tail-spin-loading"
+                        radius={1}
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                    />
+                }
+                <form 
+                    action={dispatch}
+                    onSubmit={handleSubmit}
+                    style={
+                        {display: loading ? 'none' : 'block'}
+                    }
+                >
                     <div    className="add-chat__form-group">
                         <input 
                             name="name"
@@ -76,7 +102,7 @@ export default function AddChat(
                             placeholder="Enter Chat Name" 
                         />
                          {
-                                state.errors?.name&&
+                                state?.errors?.name&&
                                 state.errors.name.length > 0 && 
                                 <div className="error">
                                     {
@@ -98,7 +124,7 @@ export default function AddChat(
                             name="users"
                         />
                         {
-                            state.errors?.users &&
+                            state?.errors?.users &&
                             state.errors.users.length > 0 &&
                             <div className="error">
                                 {

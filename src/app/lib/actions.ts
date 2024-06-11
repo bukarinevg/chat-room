@@ -1,7 +1,7 @@
 'use server';
 
 import { PrismaClient } from "@prisma/client";
-import { permanentRedirect } from 'next/navigation'
+import { permanentRedirect, redirect } from 'next/navigation'
 import { z } from 'zod';
 import bcrypt from "bcryptjs";
 import path from "path";
@@ -84,10 +84,10 @@ export async function updateProfileImage(
         const uploadDir = path.join(process.cwd(), 'public', 'images');
         const filePath = path.join(process.cwd(), 'public', 'images', fileName);
 
-        console.log('cwd', process.cwd());
-        console.log('dirname', __dirname);
-        console.log('path',filePath);
-        console.log('dir', fs.readdirSync(process.cwd()));
+        // console.log('cwd', process.cwd());
+        // console.log('dirname', __dirname);
+        // console.log('path',filePath);
+        // console.log('dir', fs.readdirSync(process.cwd()));
 
         if(!fs.existsSync(uploadDir)){
             fs.mkdirSync(uploadDir);
@@ -132,32 +132,30 @@ export async function createChat(
     queryData: FormData
 ) : Promise<CreateChatFormState>{
 
-    console.log('users' , queryData.getAll('users'));
     const validatedFields = CreateChatSchema.safeParse({
         name: queryData.get('name'),
         private: queryData.get('private'),
         users: queryData.getAll('users'),
     })
 
-    console.log('after parse', queryData);
-
     if(validatedFields.success){
-        
-        // const result =  await prisma.chat.create({
-        //     data: {
-        //         name: validatedFields.data.name,
-        //         private: validatedFields.data.private === '1',
-        //         users: {
-        //             connect: 
-        //             validatedFields.data.users.map(
-        //                 (userId) => 
-        //                 ({id: parseInt(userId)})
-        //             )
-        //         }
-        //     }
-        // });
+        const result =  await prisma.chat.create({
+            data: {
+                name: validatedFields.data.name,
+                private: validatedFields.data.private === '1',
+                users: {
+                    connect: 
+                    validatedFields.data.users.map(
+                        (userId) => 
+                        ({id: parseInt(userId)})
+                    )
+                }
+            }
+        });
+        redirect(`/chat/${result.id}`);
         
     }
+    
     return {
         message: 'Fix the fields issues',
         errors: validatedFields?.error?.flatten().fieldErrors,

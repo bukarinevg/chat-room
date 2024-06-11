@@ -23,13 +23,16 @@ model User {
   chats Chat[] @relation("UsersChats")
   messages Message[]
   image String?
+  ownerChats Chat[]
 }
 
 model Chat {
   id    Int    @id @default(autoincrement())
   name  String
   private Boolean
+  ownerId Int @default(2)
   messages Message[]
+  owner User  @relation(fields: [ownerId], references: [id])
   users User[] @relation("UsersChats")
 }
 
