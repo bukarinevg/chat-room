@@ -1,13 +1,12 @@
 'use client';
 
 import '@styles/login-form.scss';
+import Button from '@components/button';
+import Spinner from '@components/spinner';
 
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import {  useRouter } from 'next/navigation';
-import Button from '@components/button';
-
-import {TailSpin} from 'react-loader-spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
@@ -39,15 +38,7 @@ export default function LoginForm() {
         <section className='login-form block'>
             {
                     loading &&
-                    <TailSpin
-                        height="100%"
-                        width="100%"
-                        color="gray"
-                        ariaLabel="tail-spin-loading"
-                        radius={1}
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                    />
+                    <Spinner />
             }
             <form
                 style={{

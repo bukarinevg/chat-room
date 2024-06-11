@@ -3,6 +3,7 @@
 import '@styles/chat-messages.scss';
 import { useRef, useEffect, useState } from 'react';
 import ChatMessage from './chat-message';
+import Spinner from './spinner';
 
 export default function ChatMessages() {
     const [Loading, setLoading] = useState(true);
@@ -33,7 +34,10 @@ export default function ChatMessages() {
             }
             {
                 Loading && (
-                    <p>Loading...</p>
+                    <Spinner 
+                        // height='300px'
+                        // width='400px'
+                    />
                 )
             }
             <div ref={messagesEndRef} className='chat-messages__point'></div>

@@ -1,10 +1,10 @@
 'use client'
 import '@styles/profile-panel.scss';
 import Button from '@components/button';
+import Spinner from '@components/spinner';
 import { updateUser } from '@/lib/actions';
 import { UserInfo } from '@/lib/types';
 
-import { TailSpin } from 'react-loader-spinner';
 import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 
@@ -59,15 +59,7 @@ export default function ProfilePanel(
             <section className='profile-panel__menu'>
                 {
                     loading &&
-                    <TailSpin
-                        height="100%"
-                        width="100%"
-                        color="gray"
-                        ariaLabel="tail-spin-loading"
-                        radius={1}
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                    />
+                    <Spinner />
                 }
                 <form 
                     className='profile-panel__form' 

@@ -1,12 +1,16 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import { notFound } from 'next/navigation'
 import ChatHeader from "@components/chat-header";
 import ChatForm from "@components/chat-form";
 import ChatMessages from "@components/chat-messages";
+import Spinner from "@/components/spinner";
 import { getChatById } from "@/lib/dataProviders";
-import { UserDetails } from "@/lib/types";
+import { UserDetails } from "@/lib/types";  
+
+import { notFound } from 'next/navigation'
+
+
 
 export const metadata: Metadata = {
     title: 'Chat Room',
@@ -32,7 +36,9 @@ export default async function Page(
 
   return (
     <section className="chat__window">
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={
+        <Spinner />
+      }>
           <ChatHeader 
             id = { chat.id }
             name  = {chat.name}

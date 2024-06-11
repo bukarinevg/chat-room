@@ -11,7 +11,7 @@ import makeAnimated from 'react-select/animated';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { UserDetails } from "@/lib/types";
-import { TailSpin } from "react-loader-spinner";
+import Spinner from "@components/spinner";
 
 
 const animatedComponents = makeAnimated()
@@ -46,7 +46,7 @@ export default function AddChat(
         if(! state?.errors){
             setShowModal(false);
         }
-    }, [state?.message]);
+    }, [state?.message, state?.errors]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         setLoading(true);
@@ -78,15 +78,7 @@ export default function AddChat(
             >
                  {
                     loading &&
-                    <TailSpin
-                        height="100%"
-                        width="100%"
-                        color="gray"
-                        ariaLabel="tail-spin-loading"
-                        radius={1}
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                    />
+                   <Spinner />
                 }
                 <form 
                     action={dispatch}
