@@ -27,3 +27,34 @@
         }
     }
 }
+
+.chat-info-modal{
+    min-width: 300px;
+    // min-height: 300px ;
+
+    &__body{
+        width: 100%;
+        &__title{
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        &__user{
+            padding: 0 0.5rem;
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: start;
+            gap:0.5rem;
+        }
+        &__user-index{
+            font-weight: 500;
+            &::after{
+                content: ":";
+            }
+        }
+        &__user-name{
+            cursor: cell;
+        }
+    }
+}

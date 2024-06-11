@@ -161,3 +161,22 @@ export async function createChat(
         errors: validatedFields?.error?.flatten().fieldErrors,
     };
 }
+
+export async function leaveChat(
+    userId: number,
+    chatId: number
+){
+    await prisma.chat.update({
+        where: {
+            id: chatId
+        },
+        data: {
+            users: {
+                disconnect: {
+                    id: userId
+                }
+            }
+        }
+    });
+    redirect('/chat');
+}

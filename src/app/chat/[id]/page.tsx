@@ -6,9 +6,10 @@ import ChatForm from "@components/chat-form";
 import ChatMessages from "@components/chat-messages";
 import Spinner from "@/components/spinner";
 import { getChatById } from "@/lib/dataProviders";
-import { UserDetails } from "@/lib/types";  
+import { UserDetails, UserSesionInterface } from "@/lib/types";
 
 import { notFound } from 'next/navigation'
+import { auth } from "@/lib/auth";
 
 
 
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 export default async function Page(
     { params }: { params: { id: string } }
 ){
+  const session: UserSesionInterface | null = await auth() as UserSesionInterface;
   const chat = await getChatById(params.id);
 
   if(!chat) {
@@ -40,7 +42,8 @@ export default async function Page(
         <Spinner />
       }>
           <ChatHeader 
-            id = { chat.id }
+            userId={Number(session.user.id)}
+            chatId = { chat.id }
             name  = {chat.name}
             users ={chatUsers}
           />
