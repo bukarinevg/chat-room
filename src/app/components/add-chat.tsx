@@ -1,17 +1,17 @@
 "use client";
 import "@styles/add-chat.scss";
 import { createChat } from "@/lib/actions";
+import { LoadingContext } from "@components/providers/LoadingProvider";
 import Modal from "@components/modal";
 import Button from "@components/button"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useFormState } from 'react-dom';
 import Select, { StylesConfig } from "react-select";
 import makeAnimated from 'react-select/animated';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { UserDetails } from "@/lib/types";
-import Spinner from "@components/spinner";
 
 
 const animatedComponents = makeAnimated()
@@ -26,7 +26,7 @@ export default function AddChat(
     }
 ){
     const [ showModal, setShowModal ] = useState(false);
-    const [ loading, setLoading ] = useState(false);
+    const {loading, setLoading } = useContext(LoadingContext);
 
     const [ state, dispatch ] = useFormState(createChat, {
         message: null,
@@ -76,10 +76,6 @@ export default function AddChat(
                 onClose={() => setShowModal(false)}
                 title="Add Chat"
             >
-                 {
-                    loading &&
-                   <Spinner />
-                }
                 <form 
                     action={dispatch}
                     onSubmit={handleSubmit}

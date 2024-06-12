@@ -1,11 +1,11 @@
 'use client'
 import '@styles/profile-panel.scss';
 import Button from '@components/button';
-import Spinner from '@components/spinner';
+import { LoadingContext } from '@components/providers/LoadingProvider';
 import { updateUser } from '@/lib/actions';
 import { UserInfo } from '@/lib/types';
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 
 
@@ -16,7 +16,8 @@ export default function ProfilePanel(
 ){
     const [viewPassword, setViewPassword] = useState(false);
     const [edit, setEdit ] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const { loading, setLoading } = useContext(LoadingContext);
+    
 
     const updateUserWithId = updateUser.bind(null, user.id);
     const [state, dispatch] = useFormState(updateUserWithId ,{
@@ -57,10 +58,6 @@ export default function ProfilePanel(
             </h2>
            
             <section className='profile-panel__menu'>
-                {
-                    loading &&
-                    <Spinner />
-                }
                 <form 
                     className='profile-panel__form' 
                     action={dispatch}  

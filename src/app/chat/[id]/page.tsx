@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import ChatHeader from "@components/chat-header";
 import ChatForm from "@components/chat-form";
 import ChatMessages from "@components/chat-messages";
-import Spinner from "@/components/spinner";
 import { getChatById } from "@/lib/dataProviders";
 import { UserDetails, UserSesionInterface } from "@/lib/types";
 
@@ -38,9 +37,9 @@ export default async function Page(
 
   return (
     <section className="chat__window">
-      <Suspense fallback={
+      {/* <Suspense fallback={
         <Spinner />
-      }>
+      }> */}
           <ChatHeader 
             userId={Number(session.user.id)}
             chatId = { chat.id }
@@ -49,7 +48,7 @@ export default async function Page(
           />
           <ChatMessages />
           <ChatForm />
-      </Suspense>   
+      {/* </Suspense>    */}
     </section>
   );
 }

@@ -1,12 +1,12 @@
 'use client';
 
 import '@styles/chat-messages.scss';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useContext } from 'react';
 import ChatMessage from './chat-message';
-import Spinner from './spinner';
+import { LoadingContext } from '@components/providers/LoadingProvider';
 
 export default function ChatMessages() {
-    const [Loading, setLoading] = useState(true);
+    const {loading, setLoading} = useContext(LoadingContext);
 
     let messages = Array.from({ length: 10 });
 
@@ -25,20 +25,10 @@ export default function ChatMessages() {
 
     return (
         <div className='chat-messages'>
-            {
-                !Loading && (
-                    messages.map((_, index) => (
-                    <ChatMessage key={index} i={index} />
-                    ))
-                )
-            }
-            {
-                Loading && (
-                    <Spinner 
-                        // height='300px'
-                        // width='400px'
-                    />
-                )
+            {            
+                messages.map((_, index) => (
+                <ChatMessage key={index} i={index} />
+                ))   
             }
             <div ref={messagesEndRef} className='chat-messages__point'></div>
         </div>

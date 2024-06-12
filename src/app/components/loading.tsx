@@ -1,12 +1,17 @@
 'use client';
 
-import "@styles/spinner.scss";
-import { TailSpin } from "react-loader-spinner";
+import "@styles/loading.scss";
 
-export default function Spinner(
+import { useContext } from "react";
+import { TailSpin } from "react-loader-spinner";
+import { LoadingContext } from "@components/providers/LoadingProvider";
+
+export default function Loading(
     {height="100%", width="100%"}:
     {height?: string, width?: string}
 ){
+    const { loading } = useContext(LoadingContext);
+    if (!loading) return null;
     return (
         <div className="spinner-default">
             <TailSpin

@@ -1,7 +1,7 @@
 
 import ChatForm from "@components/chat-form";
 import ChatMessages from "@components/chat-messages";
-import Spinner from "@/components/spinner";
+
 
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -15,9 +15,7 @@ export default async function Page(){
 
     return (
      <section className="chat__window">
-        <Suspense fallback={
-          <Spinner />
-        }>
+        <Suspense>
             <ChatMessages />
             <ChatForm />
         </Suspense>   
