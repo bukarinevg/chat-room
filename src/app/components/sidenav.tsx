@@ -11,7 +11,6 @@ export default function Sidenav(
     }
 ){
     const [open, setOpen] = useState(false);
-    console.log(chats);
     // const chats = Array.from({ length: 101 });
     return(
         <div 

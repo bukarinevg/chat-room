@@ -12,41 +12,44 @@ import makeAnimated from 'react-select/animated';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { UserDetails } from "@/lib/types";
+import { stat } from "fs";
+import { time, timeStamp } from "console";
+import { useParams } from "next/navigation";
 
 
 const animatedComponents = makeAnimated()
 
 export default function AddChat(
-    {
-        users
-    }
+    {users}
     :{
         users?: UserDetails[]
-    
     }
 ){
-    const [ showModal, setShowModal ] = useState(false);
+    const [showModal, setShowModal ] = useState(false);
     const {loading, setLoading } = useContext(LoadingContext);
-
-    const [ state, dispatch ] = useFormState(createChat, {
+    const initialState =  {
         message: null,
         errors: {
             name: [],
             users: []
-        }
-    });
-    
+        },
+        timeStamp: Date.now()
+    };
+    const[ state, dispatch ] = useFormState(createChat, initialState);
+
+    const urlParams = useParams();
+
     const handleShowModal = () => {
         setShowModal(true);
     }
 
-
     useEffect(() => {
         setLoading(false);
-        if(! state?.errors){
+        if(!state){
             setShowModal(false);
+            setLoading(false);
         }
-    }, [state?.message, state?.errors]);
+    }, [ state,  urlParams ]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         setLoading(true);
@@ -79,10 +82,8 @@ export default function AddChat(
                 <form 
                     action={dispatch}
                     onSubmit={handleSubmit}
-                    style={
-                        {display: loading ? 'none' : 'block'}
-                    }
                 >
+                {state ? state.toString() : null}
                     <div    className="add-chat__form-group">
                         <input 
                             name="name"

@@ -113,7 +113,9 @@ type CreateChatFormState = {
         name?: string[],
         users?: string[],
     },
+    timeStamp: number | null | undefined,
     message: string | null | undefined;
+    
 
 }
 
@@ -154,11 +156,18 @@ export async function createChat(
         });
         redirect(`/chat/${result.id}`);
         
+        return {
+            message: null,
+            timeStamp: Date.now()
+        };
+        
+        
     }
     
     return {
         message: 'Fix the fields issues',
         errors: validatedFields?.error?.flatten().fieldErrors,
+        timeStamp: Date.now()
     };
 }
 

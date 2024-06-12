@@ -29,6 +29,18 @@ export const getChats = async () => {
     return prisma.chat.findMany();
 }
 
+export const getUserChats = async (id: string) => {
+    return prisma.chat.findMany({
+        where:{
+            users: {
+                some: {
+                    id: Number(id)
+                }
+            }
+        }
+    });
+}
+
 export const getChatById = async (id: string) => {
     return prisma.chat.findUnique({
         where: {

@@ -40,14 +40,17 @@ export default async function Page(
       {/* <Suspense fallback={
         <Spinner />
       }> */}
-          <ChatHeader 
-            userId={Number(session.user.id)}
-            chatId = { chat.id }
-            name  = {chat.name}
-            users ={chatUsers}
-          />
-          <ChatMessages />
-          <ChatForm />
+            <Suspense>
+              <ChatHeader 
+              userId={Number(session.user.id)}
+              chatId = { chat.id }
+              name  = {chat.name}
+              users ={chatUsers}
+            />
+              <ChatMessages />
+              <ChatForm />
+            </Suspense>
+  
       {/* </Suspense>    */}
     </section>
   );

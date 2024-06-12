@@ -34,6 +34,7 @@ export default function ProfilePanel(
             setLoading(false);
         }
     }, [state.errors]);
+    
     const handleFormState = () => {
         if(edit){
             setLoading(true);
@@ -64,9 +65,9 @@ export default function ProfilePanel(
                     onSubmit={
                         () => handleFormState()
                     }
-                    style={
-                        {display: loading ? 'none' : 'block'}
-                    }
+                    // style={
+                    //     {display: loading ? 'none' : 'block'}
+                    // }
                 >
                     <div className='profile-panel__form-group'>
                         <label 

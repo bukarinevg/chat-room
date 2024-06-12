@@ -5,7 +5,7 @@ import Header from "@/components/header";
 import { UserDetails, UserSesionInterface } from "@/lib/types";
 import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
-import { getChats, getUsersInformation } from "@/lib/dataProviders";
+import { getUserChats, getUsersInformation } from "@/lib/dataProviders";
 
 export default async function Layout(
     { children }: { children: React.ReactNode }
@@ -16,7 +16,7 @@ export default async function Layout(
     }
     const id = session.user.id;   
     const users = await getUsersInformation();
-    const chats = await getChats();
+    const chats = await getUserChats(session.user.id);
     
 
     return(
