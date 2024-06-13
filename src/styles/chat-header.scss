@@ -18,12 +18,16 @@
         }
 
         &__left{
+            cursor: pointer;
             display: grid;
             grid-template-columns: auto auto;
             gap: 0.5rem;
             &__icon{
                 margin-left: 0.2rem;
             }
+        }
+        &__right{
+            cursor: pointer;
         }
     }
 }

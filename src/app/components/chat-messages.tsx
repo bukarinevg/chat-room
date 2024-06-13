@@ -15,14 +15,16 @@ export default function ChatMessages() {
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+
+        messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
         
     };
 
     useEffect(() => {
         scrollToBottom();
         setLoadingMessages(false);
-    }, [messages]);
+    }); 
+
 
     return (
         <div className='chat-messages'>
