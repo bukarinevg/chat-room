@@ -1,8 +1,9 @@
 'use client';
 
-import { Chat } from '@/lib/types';
 import '@styles/sidenav.scss';
-import React from 'react';
+import { Chat } from '@/lib/types';
+
+import React, { ReactEventHandler } from 'react';
 import { useState } from 'react';
 
 export default function Sidenav(
@@ -11,7 +12,15 @@ export default function Sidenav(
     }
 ){
     const [open, setOpen] = useState(false);
-    // const chats = Array.from({ length: 101 });
+
+    const handleSideNavClick = (e: React.MouseEvent<HTMLElement>) => {
+        if(!open){
+            e.preventDefault();
+            setOpen(true);
+        }
+    };
+
+
     return(
         <div 
             className='sidenav'  
@@ -33,6 +42,7 @@ export default function Sidenav(
                             }
                         >
                             <a
+                                onClick={handleSideNavClick}
                                 href={`/chat/${chat.id}`}
                                 title={ 
                                     chat.name
