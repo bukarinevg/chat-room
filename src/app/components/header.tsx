@@ -1,20 +1,22 @@
 "use client";
 
 import "@styles/chat.scss";
-import HeaderAddChat from "@components/header-add-chat";
+
+import AddChat from "@components/add-chat";
 
 import { signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState } from "react";   
+import { UserDetails } from "@/lib/types";
 
 
 export default function Header(
-    {id, email} : 
+    {id, email, users} : 
     {
         id?: string | null,
         email: string | undefined | null,
-       
+        users: UserDetails[]
      }
 ){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,15 +25,11 @@ export default function Header(
       setIsMenuOpen(state);
     };
 
-
     const callbackUrl = "/";
 
-    
     return(
         <header onMouseLeave={() => toggleMenu(false)}  >
-            <HeaderAddChat />
-
-            
+            <AddChat users={users} />
             <div>
                 <a
                     href={`/chat/profile/${id}`}

@@ -1,10 +1,14 @@
 "use client";
 import "@styles/add-chat.scss";
 import { createChat } from "@/lib/actions";
+import { UserDetails } from "@/lib/types";
+import { LoadingContext } from "@components/providers/LoadingProvider";
 import Modal from "@components/modal";
 import Button from "@components/button"
 
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useSession } from 'next-auth/react';
+import { useState, useEffect, useContext } from "react";
 import { useFormState } from 'react-dom';
 import Select, { StylesConfig } from "react-select";
 import makeAnimated from 'react-select/animated';
@@ -14,28 +18,51 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const animatedComponents = makeAnimated()
 
-export default function HeaderAddChat(){
-    const [ showModal, setShowModal ] = useState(false);
+export default function AddChat(
+    {users}
+    :{
+        users?: UserDetails[]
+    }
+){
+    const { data: session, status } = useSession();
 
-    const [ state, dispatch ] = useFormState(createChat, {
+    const [showModal, setShowModal ] = useState(false);
+    const {loading, setLoading } = useContext(LoadingContext);
+    const initialState =  {
         message: null,
         errors: {
             name: [],
             users: []
-        }
-    });
+        },
+    };
+    const userId = Number(session?.user.id);
+    const createChatWithUserId = createChat.bind(null, userId);
+    const[ state, dispatch ] = useFormState(createChatWithUserId, initialState);
     
     const handleShowModal = () => {
         setShowModal(true);
     }
 
-    let options = [
-        { value: 1, label: 'User 1' },
-        { value: 2, label: 'User 2' },
-        { value: 3, label: 'User 3' },
-        { value: 4, label: 'User 4' },
-        { value: 5, label: 'User 5' },
-    ];
+    const urlParams = useParams();
+    useEffect(() => {
+        setLoading(false);
+        if(!state){
+            setShowModal(false);
+            setLoading(false);
+        }
+    }, [ state,  urlParams ]);
+    
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true);
+    }
+    let options = users?.map(user => 
+        {
+            return {
+                value: user.id,
+                label: user.name
+            };
+        }
+    );
 
     return (
         <div className="add-chat">
@@ -51,7 +78,10 @@ export default function HeaderAddChat(){
                 onClose={() => setShowModal(false)}
                 title="Add Chat"
             >
-                <form action={dispatch}>
+                <form 
+                    action={dispatch}
+                    onSubmit={handleSubmit}
+                >
                     <div    className="add-chat__form-group">
                         <input 
                             name="name"
@@ -59,7 +89,7 @@ export default function HeaderAddChat(){
                             placeholder="Enter Chat Name" 
                         />
                          {
-                                state.errors?.name&&
+                                state?.errors?.name&&
                                 state.errors.name.length > 0 && 
                                 <div className="error">
                                     {
@@ -81,7 +111,7 @@ export default function HeaderAddChat(){
                             name="users"
                         />
                         {
-                            state.errors?.users &&
+                            state?.errors?.users &&
                             state.errors.users.length > 0 &&
                             <div className="error">
                                 {

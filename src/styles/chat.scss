@@ -46,8 +46,12 @@ header{
 
     .header{
         &__icon{
+            padding: 0 0.5rem;
             cursor: pointer;
             height: 1.5rem;;
+            &:hover{
+                height: 1.6rem;
+            }
         }
 
         div{

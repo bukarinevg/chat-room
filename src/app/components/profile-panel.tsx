@@ -1,11 +1,11 @@
 'use client'
 import '@styles/profile-panel.scss';
 import Button from '@components/button';
+import { LoadingContext } from '@components/providers/LoadingProvider';
 import { updateUser } from '@/lib/actions';
 import { UserInfo } from '@/lib/types';
 
-import { TailSpin } from 'react-loader-spinner';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 
 
@@ -16,7 +16,8 @@ export default function ProfilePanel(
 ){
     const [viewPassword, setViewPassword] = useState(false);
     const [edit, setEdit ] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const { loading, setLoading } = useContext(LoadingContext);
+    
 
     const updateUserWithId = updateUser.bind(null, user.id);
     const [state, dispatch] = useFormState(updateUserWithId ,{
@@ -33,6 +34,7 @@ export default function ProfilePanel(
             setLoading(false);
         }
     }, [state.errors]);
+    
     const handleFormState = () => {
         if(edit){
             setLoading(true);
@@ -57,27 +59,15 @@ export default function ProfilePanel(
             </h2>
            
             <section className='profile-panel__menu'>
-                {
-                    loading &&
-                    <TailSpin
-                        height="100%"
-                        width="100%"
-                        color="gray"
-                        ariaLabel="tail-spin-loading"
-                        radius={1}
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                    />
-                }
                 <form 
                     className='profile-panel__form' 
                     action={dispatch}  
                     onSubmit={
                         () => handleFormState()
                     }
-                    style={
-                        {display: loading ? 'none' : 'block'}
-                    }
+                    // style={
+                    //     {display: loading ? 'none' : 'block'}
+                    // }
                 >
                     <div className='profile-panel__form-group'>
                         <label 

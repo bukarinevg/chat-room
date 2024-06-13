@@ -1,6 +1,7 @@
 @import 'variables';
 .add-chat{
     &__modal{
+        min-height:300px;
         color:black;
         min-width: 200px;
         width: 80%;
