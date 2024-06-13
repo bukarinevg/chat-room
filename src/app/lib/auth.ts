@@ -118,7 +118,7 @@ export const authOptions: NextAuthOptions = {
             expires: session.expires, 
           };
         }
-
+        
         return session as UserSesionInterface;
     },
   },

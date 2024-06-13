@@ -36,8 +36,6 @@ export async function updateUser(
         password: queryData.get('password')
     });
 
-    console.log('error', validatedFields?.error?.flatten().fieldErrors);
-
     if(validatedFields.success){
         const userObject = {
             name: validatedFields.data.name,
@@ -179,7 +177,7 @@ export async function leaveChat(
     userId: number,
     chatId: number
 ){
-    await prisma.chat.update({
+    const updateResult = await prisma.chat.update({
         where: {
             id: chatId
         },
@@ -191,5 +189,33 @@ export async function leaveChat(
             }
         }
     });
+
+    console.log('updateResult', updateResult);
+
+    const chat = await prisma.chat.findUnique({
+        where: {
+            id: chatId
+        },
+        include: {
+            users: true
+        }
+    
+    });
+
+    console.log('chat', chat);
+
+    if(chat?.users.length === 0){
+        await deleteChat(chatId);
+    }
     redirect('/chat');
+}
+
+export async function deleteChat(id: number){
+    await prisma.chat.delete({
+        where: {
+            id
+        }
+    });
+    redirect('/chat');
+
 }
