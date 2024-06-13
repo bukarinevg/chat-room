@@ -41,7 +41,7 @@ export default function ChatHeader(
     return (
         <header className="chat__header">
             <div 
-                className="chat__header__left btn"
+                className="chat__header__left"
                 onClick={showChatInfoHandle}
             >
                 <h2>
@@ -55,7 +55,7 @@ export default function ChatHeader(
                 </span>
             </div>
             <div 
-                className="chat__header__right btn"
+                className="chat__header__right"
                 onClick={leaveChatHandle}
             >
                     Leave Chat

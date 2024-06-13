@@ -25,6 +25,10 @@ export default async function Page(
     return notFound();
   }
 
+  const user = await auth();
+  const userId= Number(user?.user?.id);
+
+  
   const chatUsers: UserDetails[] = chat.users.map((user) => {
     return {
       id: user.id,
@@ -33,6 +37,11 @@ export default async function Page(
       image: user.image,
     };
   });
+
+  if(userId && ! chatUsers.find(user => user.id === userId) ){
+    return notFound();
+  }
+
 
   return (
     <section className="chat__window">
