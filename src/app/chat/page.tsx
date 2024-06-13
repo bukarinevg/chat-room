@@ -14,11 +14,8 @@ export default async function Page(){
     
 
     return (
-     <section className="chat__window">
-        <Suspense>
-            <ChatMessages />
-            <ChatForm />
-        </Suspense>   
+      <section className="chat__window">
+        <p>Home chat page</p> 
       </section>
     );
 }

@@ -35,8 +35,6 @@ export default function AddChat(
             users: []
         },
     };
-
-    console.log('session', session);
     const userId = Number(session?.user.id);
     if(!userId){
         return null;

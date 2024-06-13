@@ -7,10 +7,11 @@ import Modal from './modal';
 import { useState } from 'react';
 import { leaveChat } from '@/lib/actions';
 
-
+import { useContext } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from 'next-auth/react';
+import { LoadingContext } from './providers/LoadingProvider';
 
 
 
@@ -22,11 +23,14 @@ export default function ChatHeader(
 }) {
     const { data: session } = useSession();
     const userId = Number(session?.user.id);
+
+    const { setLoading } = useContext(LoadingContext);
     
     const [showChatInfo, setShowChatInfo] = useState(false);
 
     const leaveChatHandle = () =>{
-        leaveChat(userId, chatId)
+        setLoading(true);
+        leaveChat(userId, chatId);
     }
 
     const showChatInfoHandle = () => {

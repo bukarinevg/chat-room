@@ -153,7 +153,6 @@ export async function createChat(
                 }
             }   
         });
-        console.log('result', result.id, userId)
         await prisma.chat.update({
             where: {
                 id: result.id
