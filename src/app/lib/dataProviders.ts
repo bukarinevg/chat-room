@@ -17,6 +17,23 @@ export const getUsersInformation = async (): Promise<Array<UserDetails>> => {
     return data as Array<UserDetails>;
 }
 
+export const getUsersInformationExceptUser = async (userId:number): Promise<Array<UserDetails>> => {
+    const data = await prisma.user.findMany({
+        select: {
+            id: true,
+            email: true,
+            name: true,
+            image: true
+        },
+        where:{
+            id: {
+                not: userId
+            }
+        }
+    });
+    return data as Array<UserDetails>;
+}
+
 export const getUserById = async (id: number) => {
     return prisma.user.findUnique({
         where: {

@@ -113,10 +113,7 @@ type CreateChatFormState = {
         name?: string[],
         users?: string[],
     },
-    timeStamp: number | null | undefined,
     message: string | null | undefined;
-    
-
 }
 
 const CreateChatSchema = z.object({
@@ -130,6 +127,7 @@ const CreateChatSchema = z.object({
 });
 
 export async function createChat(
+    userId: number,
     prevState: CreateChatFormState,
     queryData: FormData
 ) : Promise<CreateChatFormState>{
@@ -151,23 +149,30 @@ export async function createChat(
                         (userId) => 
                         ({id: parseInt(userId)})
                     )
+
+                }
+            }   
+        });
+        console.log('result', result.id, userId)
+        await prisma.chat.update({
+            where: {
+                id: result.id
+            },
+            data: {
+                users: {
+                    connect: {
+                        id: userId
+                    }
                 }
             }
+        
         });
-        redirect(`/chat/${result.id}`);
-        
-        return {
-            message: null,
-            timeStamp: Date.now()
-        };
-        
-        
+        redirect(`/chat/${result.id}`);     
     }
     
     return {
         message: 'Fix the fields issues',
         errors: validatedFields?.error?.flatten().fieldErrors,
-        timeStamp: Date.now()
     };
 }
 

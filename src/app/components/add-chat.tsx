@@ -1,20 +1,19 @@
 "use client";
 import "@styles/add-chat.scss";
 import { createChat } from "@/lib/actions";
+import { UserDetails } from "@/lib/types";
 import { LoadingContext } from "@components/providers/LoadingProvider";
 import Modal from "@components/modal";
 import Button from "@components/button"
 
+import { useParams } from "next/navigation";
+import { useSession } from 'next-auth/react';
 import { useState, useEffect, useContext } from "react";
 import { useFormState } from 'react-dom';
 import Select, { StylesConfig } from "react-select";
 import makeAnimated from 'react-select/animated';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { UserDetails } from "@/lib/types";
-import { stat } from "fs";
-import { time, timeStamp } from "console";
-import { useParams } from "next/navigation";
 
 
 const animatedComponents = makeAnimated()
@@ -25,6 +24,8 @@ export default function AddChat(
         users?: UserDetails[]
     }
 ){
+    const { data: session, status } = useSession();
+
     const [showModal, setShowModal ] = useState(false);
     const {loading, setLoading } = useContext(LoadingContext);
     const initialState =  {
@@ -33,16 +34,21 @@ export default function AddChat(
             name: [],
             users: []
         },
-        timeStamp: Date.now()
     };
-    const[ state, dispatch ] = useFormState(createChat, initialState);
 
-    const urlParams = useParams();
+    console.log('session', session);
+    const userId = Number(session?.user.id);
+    if(!userId){
+        return null;
+    }
+    const createChatWithUserId = createChat.bind(null, userId);
 
+    const[ state, dispatch ] = useFormState(createChatWithUserId, initialState);
     const handleShowModal = () => {
         setShowModal(true);
     }
 
+    const urlParams = useParams();
     useEffect(() => {
         setLoading(false);
         if(!state){
@@ -50,12 +56,10 @@ export default function AddChat(
             setLoading(false);
         }
     }, [ state,  urlParams ]);
-
+    
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         setLoading(true);
     }
-
-
     let options = users?.map(user => 
         {
             return {
@@ -83,7 +87,6 @@ export default function AddChat(
                     action={dispatch}
                     onSubmit={handleSubmit}
                 >
-                {state ? state.toString() : null}
                     <div    className="add-chat__form-group">
                         <input 
                             name="name"

@@ -1,20 +1,27 @@
 'use client';
 
 import '@styles/chat-header.scss';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
+
 import { UserDetails } from '@/lib/types';
 import Modal from './modal';
 import { useState } from 'react';
 import { leaveChat } from '@/lib/actions';
 
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from 'next-auth/react';
+
+
+
 export default function ChatHeader(
-    {userId, chatId, name, users}: {
-    userId: number,
+    { chatId, name, users}: {
     chatId: number, 
     name: string, 
     users: UserDetails[]
 }) {
+    const { data: session } = useSession();
+    const userId = Number(session?.user.id);
     
     const [showChatInfo, setShowChatInfo] = useState(false);
 

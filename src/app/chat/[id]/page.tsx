@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 export default async function Page(
     { params }: { params: { id: string } }
 ){
-  const session: UserSesionInterface | null = await auth() as UserSesionInterface;
   const chat = await getChatById(params.id);
 
   if(!chat) {
@@ -42,10 +41,9 @@ export default async function Page(
       }> */}
             <Suspense>
               <ChatHeader 
-              userId={Number(session.user.id)}
-              chatId = { chat.id }
-              name  = {chat.name}
-              users ={chatUsers}
+                chatId = { chat.id }
+                name  = {chat.name}
+                users ={chatUsers}
             />
               <ChatMessages />
               <ChatForm />
