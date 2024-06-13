@@ -36,12 +36,9 @@ export default function AddChat(
         },
     };
     const userId = Number(session?.user.id);
-    if(!userId){
-        return null;
-    }
     const createChatWithUserId = createChat.bind(null, userId);
-
     const[ state, dispatch ] = useFormState(createChatWithUserId, initialState);
+    
     const handleShowModal = () => {
         setShowModal(true);
     }
