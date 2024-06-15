@@ -34,12 +34,8 @@ export default function ChatForm(
     };
 
     const handleSend = (e: React.FormEvent<HTMLFormElement>) => {
-        const pubResult =  pubnub.publish({
-            channel: 'chat-channel',
-            message: { sender: pubnub.getUUID(), content: message }
-        });
         setMessage('');
-        console.log(pubResult);
+        
     };
     
 
