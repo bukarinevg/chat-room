@@ -25,11 +25,9 @@ export default async function Page(
   if(!chat) {
     return notFound();
   }
-  let messages: Message[] | null  = await getMessages(Number(params.id));
-  const user = await auth();
-  const userId= Number(user?.user?.id);
-
   
+  const user = await auth();
+  const userId= Number(user?.user?.id);  
   const chatUsers: UserDetails[] = chat.users.map((user) => {
     return {
       id: user.id,
@@ -42,6 +40,8 @@ export default async function Page(
   if(userId && ! chatUsers.find(user => user.id === userId) ){
     return notFound();
   }
+  
+  let messages: Message[] | null  = await getMessages(Number(params.id));
 
 
   return (

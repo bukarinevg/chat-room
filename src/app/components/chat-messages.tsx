@@ -7,12 +7,14 @@ import { LoadingContext } from '@components/providers/LoadingProvider';
 import { Message } from '@/lib/types';
 
 import { useRef, useEffect, useState, useContext } from 'react';
+import pubnub from '@root/pubnub';
 
 
-export default async function ChatMessages(
-    {messages}:{messages: Array<Message> | null}
+export default function ChatMessages(
+    {messages}:{messages: Array<Message> | []}
 ) {
     const [loading, setLoadingMessages] = useState(true);
+    const [chatMessages, setMessages] = useState<Array<Message> | []>(messages);
     // const {setLoading} = useContext(LoadingContext);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const scrollToBottom = () => {
@@ -25,14 +27,27 @@ export default async function ChatMessages(
         setLoadingMessages(false);
     }); 
 
+    useEffect(() => {
+        pubnub.subscribe({ channels: ['chat-channel'] });
+        pubnub.addListener({
+          message: (event: any) => {
+            setMessages((msgs) => [...msgs, event.message]);
+            console.log('event.message', event.message);
+          }
+        });
+    
+        return () => {
+          pubnub.unsubscribeAll();
+        };
+      }, []);
 
     return (
         <div className='chat-messages'>
             {    
-                !loading && messages &&
+                !loading && chatMessages &&
                 (                
-                    messages.map((message, index) => (
-                        <ChatMessage message={message} i={index} />
+                    chatMessages.map((message, index) => (
+                        <ChatMessage key={index} i={index} message={message} />
                 ))
                 )
             }

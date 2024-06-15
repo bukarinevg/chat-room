@@ -5,6 +5,7 @@ import { permanentRedirect, redirect } from 'next/navigation'
 import { z } from 'zod';
 import bcrypt from "bcryptjs";
 import path from "path";
+import pubnub from "@root/pubnub";
 
 const prisma= new PrismaClient();
 
@@ -267,6 +268,9 @@ export async function createMessage(
                 }
             }
         });
+
+
+        // console.log(`pubResult`, pubResult);
         return {
             message: null,
             errors: {
