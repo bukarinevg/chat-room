@@ -32,7 +32,7 @@ export default async function ChatMessages(
                 !loading && messages &&
                 (                
                     messages.map((message, index) => (
-                        <ChatMessage message={index} i={index} />
+                        <ChatMessage message={message} i={index} />
                 ))
                 )
             }
