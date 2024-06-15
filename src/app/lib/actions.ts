@@ -5,6 +5,7 @@ import { permanentRedirect, redirect } from 'next/navigation'
 import { z } from 'zod';
 import bcrypt from "bcryptjs";
 import path from "path";
+import pubnub from "@root/pubnub";
 
 const prisma= new PrismaClient();
 
@@ -151,6 +152,7 @@ export async function createChat(
                 }
             }   
         });
+        //add the current user to the chat
         await prisma.chat.update({
             where: {
                 id: result.id
@@ -218,4 +220,77 @@ export async function deleteChat(id: number){
     });
     redirect('/chat');
 
+}
+
+type CreateMessageFormState = {
+    errors?: {
+        message?: string[],
+    },
+    message: string | null | undefined;
+
+}
+
+const CreateMessageSchema = z.object({
+    message: z.string({
+        message: 'Type something to send the message'
+    }).min(1, {
+        message: 'Type something to send the message'
+    }).max(1000,{
+        message: 'Message should be less than 1000 symbols'
+    }),
+
+});
+
+export async function createMessage(
+    userId: number,
+    chatId: number,
+    prevState: CreateMessageFormState,
+    queryData: FormData
+){
+
+    const validatedFields = CreateMessageSchema.safeParse({
+        message: queryData.get('message'),
+    });
+
+    if(validatedFields.success){
+        await prisma.message.create({
+            data: {
+                text: validatedFields.data.message,
+                user: {
+                    connect: {
+                        id: userId
+                    }
+                },
+                chat: {
+                    connect: {
+                        id: chatId
+                    }
+                }
+            }
+        });
+
+
+        // console.log(`pubResult`, pubResult);
+        return {
+            message: null,
+            errors: {
+                message: []
+            }
+        };
+    }
+    return {
+        message: 'Fix the fields issues',
+        errors: validatedFields?.error?.flatten().fieldErrors,
+    };
+}
+
+export async function getMessages(chatId: number){
+    return await prisma.message.findMany({
+        where: {
+            chatId
+        },
+        include: {
+            user: true
+        }
+    });
 }

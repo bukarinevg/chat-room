@@ -32,9 +32,12 @@ export type Chat = {
 }
 
 export type Message = {
-    id: number;
-    chatId: number;
-    userId: number;
-    text: string;
-    createdAt: Date;
+  id: number,
+  text: string,
+  user: {
+      id: number,
+      name: string,
+      image: string | null,
+  },
+  createdAt: Date ,
 }

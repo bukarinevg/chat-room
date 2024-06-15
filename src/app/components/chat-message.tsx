@@ -1,8 +1,15 @@
 'use client';
 
+import { Message } from '@/lib/types';
 import '@styles/chat-message.scss';
 
-export default function ChatMessage({i} : {i: number}){
+export default function ChatMessage(
+    {message, i} : 
+    {
+        message: Message ,
+        i: number
+    }
+){
 
 
     return(
@@ -10,9 +17,9 @@ export default function ChatMessage({i} : {i: number}){
             <div className='chat-message__content'>
                 <div className='chat-message__author'> 
                     <img className='chat-message__author__avatar' src='https://loremflickr.com/320/240' alt='Author' />
-                    <p className='chat-message__author__name'>Author</p>
+                    <p className='chat-message__author__name'>{message.user.name}</p>
                 </div>
-                <p className='chat-message__text'>{"text".repeat(i)} </p>
+                <p className='chat-message__text'>{message.text}</p>
             </div>
         </div>
     );
