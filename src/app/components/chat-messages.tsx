@@ -4,21 +4,21 @@ import '@styles/chat-messages.scss';
 import ChatMessage from '@components/chat-message';
 import Spinner from '@components/spinner';
 import { LoadingContext } from '@components/providers/LoadingProvider';
+import { Message } from '@/lib/types';
 
 import { useRef, useEffect, useState, useContext } from 'react';
 
-export default function ChatMessages() {
+
+export default async function ChatMessages(
+    {messages}:{messages: Array<Message> | null}
+) {
     const [loading, setLoadingMessages] = useState(true);
     // const {setLoading} = useContext(LoadingContext);
-    let messages = Array.from({ length: 10 }).reverse();
-
     const messagesEndRef = useRef<HTMLDivElement>(null);
-
     const scrollToBottom = () => {
-
-        messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
-        
+        messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });        
     };
+
 
     useEffect(() => {
         scrollToBottom();
@@ -29,10 +29,10 @@ export default function ChatMessages() {
     return (
         <div className='chat-messages'>
             {    
-                !loading &&
+                !loading && messages &&
                 (                
-                    messages.map((_, index) => (
-                        <ChatMessage key={index} i={index} />
+                    messages.map((message, index) => (
+                        <ChatMessage message={index} i={index} />
                 ))
                 )
             }

@@ -93,7 +93,8 @@ export const authOptions: NextAuthOptions = {
         const newUser = await prisma.user.create({
           data:{
             email: user.email,
-            name: user.name ?? 'John Doe'
+            name: user.name ?? 'John Doe',
+            image: user.image ?? 'https://loremflickr.com/150/150'
           }
         });        
         return true;

@@ -1,17 +1,22 @@
 .chat-form{
+    &__area{
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: auto auto 0 auto;
+        width: 80%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
     // position: fixed;
     // bottom: 1em;
-    width: 80%;
     // left: 15%;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto auto 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+
 
     textarea {
         height: auto;

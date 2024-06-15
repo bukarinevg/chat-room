@@ -5,10 +5,11 @@ import ChatHeader from "@components/chat-header";
 import ChatForm from "@components/chat-form";
 import ChatMessages from "@components/chat-messages";
 import { getChatById } from "@/lib/dataProviders";
-import { UserDetails, UserSesionInterface } from "@/lib/types";
+import { Message, UserDetails, UserSesionInterface } from "@/lib/types";
 
 import { notFound } from 'next/navigation'
 import { auth } from "@/lib/auth";
+import { getMessages } from "@/lib/actions";
 
 
 
@@ -24,7 +25,7 @@ export default async function Page(
   if(!chat) {
     return notFound();
   }
-
+  let messages: Message[] | null  = await getMessages(Number(params.id));
   const user = await auth();
   const userId= Number(user?.user?.id);
 
@@ -48,15 +49,19 @@ export default async function Page(
       {/* <Suspense fallback={
         <Spinner />
       }> */}
-            <Suspense>
-              <ChatHeader 
-                chatId = { chat.id }
-                name  = {chat.name}
-                users ={chatUsers}
-            />
-              <ChatMessages />
-              <ChatForm />
-            </Suspense>
+        <Suspense>
+          <ChatHeader 
+            chatId = { chat.id }
+            name  = {chat.name}
+            users ={chatUsers}
+        />
+          <ChatMessages
+            messages = { messages}
+          />
+          <ChatForm 
+            chatId = { chat.id }
+          />
+        </Suspense>
   
       {/* </Suspense>    */}
     </section>
