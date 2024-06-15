@@ -6,6 +6,7 @@ import { z } from 'zod';
 import bcrypt from "bcryptjs";
 import path from "path";
 import pubnub from "@root/pubnub";
+import { Message } from "./types";
 
 const prisma= new PrismaClient();
 
@@ -235,7 +236,7 @@ const CreateMessageSchema = z.object({
         message: 'Type something to send the message'
     }).min(1, {
         message: 'Type something to send the message'
-    }).max(1000,{
+    }).max(4000,{
         message: 'Message should be less than 1000 symbols'
     }),
 
@@ -253,7 +254,7 @@ export async function createMessage(
     });
 
     if(validatedFields.success){
-        await prisma.message.create({
+        const {id: messageId} = await prisma.message.create({
             data: {
                 text: validatedFields.data.message,
                 user: {
@@ -269,8 +270,39 @@ export async function createMessage(
             }
         });
 
+        const message = await prisma.message.findUnique({
+            where: {
+                id: messageId
+            },
+            include: {
+                user: true,
+            }
+        });
 
-        // console.log(`pubResult`, pubResult);
+        console.log('chat_id', chatId);
+        console.log('message', message?.text);
+        try {
+            if(message && message.user){
+                const pubMessage: Message = {
+                    id: message.id,
+                    text: message.text,
+                    user: {
+                        id: message.user.id,
+                        name: message.user.name,
+                        image: message.user.image
+                    },
+                    createdAt: message.createdAt
+                } 
+                const result = await pubnub.publish({
+                    message: pubMessage,
+                    channel: String( `chat-${chatId}`),
+                    sendByPost: true, 
+                });
+            }
+        } catch (status) {
+            console.log(status);
+        }  
+
         return {
             message: null,
             errors: {

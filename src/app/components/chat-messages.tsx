@@ -11,35 +11,40 @@ import pubnub from '@root/pubnub';
 
 
 export default function ChatMessages(
-    {messages}:{messages: Array<Message> | []}
+    {messages, chatId}:{messages: Array<Message> | [], chatId: number}
 ) {
+
     const [loading, setLoadingMessages] = useState(true);
-    const [chatMessages, setMessages] = useState<Array<Message> | []>(messages);
-    // const {setLoading} = useContext(LoadingContext);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });        
     };
-
-
     useEffect(() => {
         scrollToBottom();
         setLoadingMessages(false);
     }); 
 
+    const [chatMessages, setMessages] = useState<Array<Message> | []>(messages);
     useEffect(() => {
-        pubnub.subscribe({ channels: ['chat-channel'] });
+        pubnub.subscribe({ channels: [`chat-${chatId}`] });
         pubnub.addListener({
           message: (event: any) => {
-            setMessages((msgs) => [...msgs, event.message]);
-            console.log('event.message', event.message);
-          }
-        });
+            setMessages(
+                (currentMessages) => {
+                if (event.message.id !== currentMessages[currentMessages.length - 1]?.id) {
+                  console.log('event.message', event.message.id, 'last chat message', currentMessages[currentMessages.length - 1]?.id);
+                  return [...currentMessages, event.message];
+                }
+                return currentMessages;
+              });
+            }
+          });
     
         return () => {
           pubnub.unsubscribeAll();
         };
       }, []);
+
 
     return (
         <div className='chat-messages'>

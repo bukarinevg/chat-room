@@ -56,6 +56,7 @@ export default async function Page(
             users ={chatUsers}
         />
           <ChatMessages
+            chatId = { chat.id }
             messages = { messages}
           />
           <ChatForm 
