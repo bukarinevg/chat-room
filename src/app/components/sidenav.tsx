@@ -19,6 +19,7 @@ export default function Sidenav(
     
 
     const handleSideNavClick = (e: React.MouseEvent<HTMLElement>) => {
+        alert(open);
         e.preventDefault();
         if(!open){
             setOpen(true);
