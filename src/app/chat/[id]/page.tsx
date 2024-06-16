@@ -1,15 +1,16 @@
-import { Metadata } from "next";
-import { Suspense } from "react";
 
 import ChatHeader from "@components/chat-header";
 import ChatForm from "@components/chat-form";
 import ChatMessages from "@components/chat-messages";
 import { getChatById } from "@/lib/dataProviders";
 import { Message, UserDetails, UserSesionInterface } from "@/lib/types";
-
-import { notFound } from 'next/navigation'
 import { auth } from "@/lib/auth";
 import { getMessages } from "@/lib/actions";
+
+import { notFound } from 'next/navigation'
+import { Metadata } from "next";
+import { Suspense } from "react";
+
 
 
 

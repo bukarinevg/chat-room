@@ -31,6 +31,9 @@ export default function Header(
         <header onMouseLeave={() => toggleMenu(false)}  >
             <AddChat users={users} />
             <div>
+                {new Date().getHours()}:{new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}
+            </div>
+            <div>
                 <a
                     href={`/chat/profile/${id}`}
                 >
@@ -41,6 +44,7 @@ export default function Header(
                     />
                 </a>
             </div>
+
             
             {
                 isMenuOpen && (
