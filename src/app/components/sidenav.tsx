@@ -16,11 +16,11 @@ export default function Sidenav(
     const [open, setOpen] = useState(false);
     const router = useRouter();
     const { setLoading } = useContext(LoadingContext);
-    
+    alert(open);
 
     const handleSideNavClick = (e: React.MouseEvent<HTMLElement>) => {
-        alert(open);
         e.preventDefault();
+        alert(open);
         if(!open){
             setOpen(true);
         }
@@ -36,6 +36,7 @@ export default function Sidenav(
             className='sidenav'  
             onMouseEnter={() => setOpen(true) } 
             onMouseLeave={() => setOpen(false)} 
+            onClick={() => setOpen(!open)}
         >
             <div className='sidenav__line'></div>
             <nav 

@@ -1,10 +1,6 @@
 
-import ChatForm from "@components/chat-form";
-import ChatMessages from "@components/chat-messages";
-
-
+import '@styles/chat-home.scss';
 import { Metadata } from "next";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
     title: 'Chat Room',
@@ -14,8 +10,19 @@ export default async function Page(){
     
 
     return (
-      <section className="chat__window">
-        <p>Home chat page</p> 
+      <section className="chat-window">
+        <h1>Chat Homepage</h1>
+        <article className="chat-window__header">
+          <div className='block'>
+            Users:
+          </div>
+          <div className='block'>
+            Public chats:
+          </div>
+          <div className='block'>
+            Yours chats:
+          </div>
+        </article>
       </section>
     );
 }
