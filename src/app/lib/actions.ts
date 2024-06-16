@@ -316,13 +316,3 @@ export async function createMessage(
     };
 }
 
-export async function getMessages(chatId: number){
-    return await prisma.message.findMany({
-        where: {
-            chatId
-        },
-        include: {
-            user: true
-        }
-    });
-}

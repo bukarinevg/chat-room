@@ -28,6 +28,7 @@
             padding: 0.5rem;
             margin-bottom: 0.5rem;
             width: 100%;
+            animation: slideIn 0.5s ease-in-out;
         }
 
         textarea{
@@ -44,6 +45,7 @@
         }
 
         &__select{
+            animation: slideIn 0.5s ease-in-out;
             width: 100%;
             // padding: 0.5rem;
             margin-bottom: 0.5rem;

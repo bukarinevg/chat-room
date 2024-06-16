@@ -69,3 +69,14 @@ export const getChatById = async (id: string) => {
         },
     });
 }
+
+export async function getMessages(chatId: number){
+    return await prisma.message.findMany({
+        where: {
+            chatId
+        },
+        include: {
+            user: true
+        }
+    });
+}
