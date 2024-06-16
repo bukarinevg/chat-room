@@ -36,7 +36,6 @@ export default function Sidenav(
             className='sidenav'  
             onMouseEnter={() => setOpen(true) } 
             onMouseLeave={() => setOpen(false)} 
-            onClick={() => setOpen(!open)}
         >
             <div className='sidenav__line'></div>
             <nav 
