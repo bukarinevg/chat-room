@@ -32,7 +32,6 @@ export default function ChatMessages(
             setMessages(
                 (currentMessages) => {
                 if (event.message.id !== currentMessages[currentMessages.length - 1]?.id) {
-                  console.log('event.message', event.message.id, 'last chat message', currentMessages[currentMessages.length - 1]?.id);
                   return [...currentMessages, event.message];
                 }
                 return currentMessages;
@@ -52,7 +51,7 @@ export default function ChatMessages(
                 !loading && chatMessages &&
                 (                
                     chatMessages.map((message, index) => (
-                        <ChatMessage key={index} i={index} message={message} />
+                        <ChatMessage key={index} message={message} />
                 ))
                 )
             }
