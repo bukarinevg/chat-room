@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -5,7 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
   }
 
-export default function Button({ children, className, ...rest }: ButtonProps){
+export default function Button({ children, className, ...rest }: ButtonProps ){
     return (
         <button className={`btn ${className}`} {...rest}>
             {children}

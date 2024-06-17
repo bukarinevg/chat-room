@@ -18,7 +18,7 @@ export default async function Layout(
     }
     const id = session.user.id;   
     const users = await getUsersInformationExceptUser(Number(session.user.id));
-    const chats = await getUserChats(session.user.id);
+    const chats = await getUserChats(Number(session.user.id));
     
 
     return(
