@@ -79,11 +79,13 @@ export async function updateProfileImage(
     const fs= require('fs');
     const file = queryData.get('profileImage');
     
-    
+    console.log('file', file);
     if(file instanceof File) {
         const extension = path.extname(file.name);
-        const fileName = `${Date.now()}-${uuidv4()}`;
+        const fileName = `${Date.now()}-${uuidv4()}.${extension}`;
         const bucket = process.env.NEXT_AWS_S3_BUCKET_NAME ?? 'profileimagebucketeugene';
+
+        console.log(fileName);
 
         const s3 = new AWS.S3({
             accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID,
@@ -94,12 +96,15 @@ export async function updateProfileImage(
         const fileBuffer = await file.arrayBuffer();
         const awsFile = Buffer.from(fileBuffer);
         
+        
         const params = {
             Bucket: bucket,
             Key: fileName,
             Body: awsFile,
             ContentType: `image/${extension}`  // Adjust the content type if needed
         };
+
+        console.log('params', params);
 
 
         try {
