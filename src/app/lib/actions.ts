@@ -11,6 +11,7 @@ import { Message } from "./types";
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 
 const prisma= new PrismaClient();
+const client = new S3Client({ region: process.env.AWS_REGION })
 
 type UpdateUserFormState = {
     errors?: {
@@ -92,7 +93,7 @@ export async function updateProfileImage(
         const fileBuffer = await file.arrayBuffer();
         const awsFile = Buffer.from(fileBuffer);
         try {
-            const client = new S3Client({ region: process.env.AWS_REGION })
+           
             
             const uploadCommand = new PutObjectCommand({
               Bucket: process.env.AWS_BUCKET_NAME,
@@ -366,7 +367,7 @@ export async function joinChat(
 
 
 export async function deleteImage(name: string){
-    const client = new S3Client({ region: process.env.AWS_REGION })
+   
     const deleteCommand = new DeleteObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: name,

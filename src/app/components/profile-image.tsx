@@ -40,8 +40,8 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
                         className='profile-image__img'
                         src={file}
                         alt="profile image"
-                        width={150}
-                        height={150}
+                        width={120}
+                        height={120}
                     />
                 </label>
                 <input 
