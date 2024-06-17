@@ -77,13 +77,12 @@ export async function updateProfileImage(
     queryData: FormData
 ){
     console.log('updateProfileImage');
-    const fs= require('fs');
     const file = queryData.get('profileImage');
     
     console.log('file', file);
     if(file instanceof File) {
         const extension = path.extname(file.name);
-        const fileName = `${Date.now()}-${uuidv4()}.${extension}`;
+        const fileName = `${Date.now()}-${uuidv4()}${extension}`;
         const bucket = process.env.NEXT_AWS_S3_BUCKET_NAME ?? 'profileimagebucketeugene';
 
         console.log(fileName);
