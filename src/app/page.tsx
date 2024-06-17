@@ -68,7 +68,7 @@ export default function Home() {
           <Card
             title= "Description"
           >
-           This application allows users to create chatrooms with different users.<br></br> 
+           This is life-time chat allows you to create chatrooms.<br></br> 
            You can create a new chat room, invite your friends and start chatting. 
           </Card>
 
