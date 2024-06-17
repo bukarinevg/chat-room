@@ -68,20 +68,22 @@ export default function Home() {
           <Card
             title= "Description"
           >
-           This application allows users to create chatrooms with different users.<br></br> 
+           This is life-time chat allows you to create chatrooms.<br></br> 
            You can create a new chat room, invite your friends and start chatting. 
           </Card>
 
         </article>
       </section>
       <section className="chat__usage block" >
-        <p>
+        <Card title="Let's go!">
+          <div className="chat__usage__content">
           To start using the application, please sign in with google account, or create account.
-        </p>
-        <Button 
-          className="chat__usage__proceed"
-          onClick={() => setShowModal(true)}
-        > Proceed </Button> 
+          <Button 
+            className="chat__usage__proceed"
+            onClick={() => setShowModal(true)}
+          > Proceed </Button> 
+          </div>
+        </Card>
         <AuthModal 
           show={showModal} 
           onClose={() => setShowModal(false)}
