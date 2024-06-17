@@ -25,8 +25,8 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
         if (e.target.files && e.target.files[0]) {
             setFile(URL.createObjectURL(e.target.files[0])); 
             console.log('submitting');
-            console.log( imageForm.current?.submit()  );     
-            setLoading(true);
+            const submit = imageForm.current?.submit();
+            console.log(  submit );     
         }
     }
 

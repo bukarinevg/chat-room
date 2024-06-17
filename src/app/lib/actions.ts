@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 import path from "path";
 import pubnub from "@root/pubnub";
 import { Message } from "./types";
-import AWS from 'aws-sdk'; 
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 const prisma= new PrismaClient();
 
@@ -84,32 +84,27 @@ export async function updateProfileImage(
     if(file instanceof File) {
         const extension = path.extname(file.name);
         const fileName = `${Date.now()}-${uuidv4()}${extension}`;
-        const bucket = process.env.NEXT_AWS_S3_BUCKET_NAME ?? 'profileimagebucketeugene';
+        const bucket = process.env.AWS_BUCKET_NAME ?? 'profileimagebucketeugene';
 
         console.log(fileName);
 
-        const s3 = new AWS.S3({
-            accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-            region: process.env.NEXT_AWS_S3_REGION
-        });
-
         const fileBuffer = await file.arrayBuffer();
         const awsFile = Buffer.from(fileBuffer);
-        
-        
-        const params = {
-            Bucket: bucket,
-            Key: fileName,
-            Body: awsFile,
-            ContentType: `image/${extension}`  // Adjust the content type if needed
-        };
 
-        console.log('params', params);
-
-
+        // const s3 = new AWS.S3({
+        //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        //     region: process.env.AWS_REGION
+        // });
         try {
-            const data = await s3.upload(params).promise();
+            const client = new S3Client({ region: process.env.AWS_REGION })
+            const uploadCommand = new PutObjectCommand({
+              Bucket: process.env.AWS_BUCKET_NAME,
+              Key: fileName,
+              Body: awsFile,
+            });  
+            const response = await client.send(uploadCommand);
+
             await prisma.user.update({
                 where: {
                     id: parseInt(id)
@@ -118,12 +113,38 @@ export async function updateProfileImage(
                     image: fileName
                 }
             });
-            console.log('Profile image uploaded successfully:', data.Location);
+            // return Response.json(response)
+          } catch (error: any) {
+            return Response.json({ error: error.message })
+          }
+        
+        
+        // const params = {
+        //     Bucket: bucket,
+        //     Key: fileName,
+        //     Body: awsFile,
+        //     ContentType: `image/${extension}`  // Adjust the content type if needed
+        // };
 
-        } catch (err) {
-            console.error('Error uploading profile image:', err);
-            throw new Error('Failed to upload profile image');
-        }
+        // console.log('params', params);
+
+
+        // try {
+        //     const data = await s3.upload(params).promise();
+        //     await prisma.user.update({
+        //         where: {
+        //             id: parseInt(id)
+        //         },
+        //         data: {
+        //             image: fileName
+        //         }
+        //     });
+        //     console.log('Profile image uploaded successfully:', data.Location);
+
+        // } catch (err) {
+        //     console.error('Error uploading profile image:', err);
+        //     throw new Error('Failed to upload profile image');
+        // }
     }
     permanentRedirect(`/chat/profile/${id}`);
     return {};
@@ -213,7 +234,6 @@ export async function leaveChat(
             }
         }
     });
-
     console.log('updateResult', updateResult);
 
     const chat = await prisma.chat.findUnique({
@@ -373,23 +393,23 @@ export async function joinChat(
 
 
 export async function deleteImage(name: string){
-    const bucket = process.env.NEXT_AWS_S3_BUCKET_NAME ?? 'profileimagebucketeugene';
-    const s3 = new AWS.S3({
-        accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        region: process.env.NEXT_AWS_S3_REGION
-    });
+    // const bucket = process.env.AWS_BUCKET_NAME ?? 'profileimagebucketeugene';
+    // const s3 = new AWS.S3({
+    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //     region: process.env.AWS_REGION
+    // });
 
-    const params = {
-        Bucket: bucket,
-        Key: name
-    };
+    // const params = {
+    //     Bucket: bucket,
+    //     Key: name
+    // };
 
-    try {
-        await s3.deleteObject(params).promise();
-    } catch (err) {
-        console.error('Error deleting profile image:', err);
-        throw new Error('Failed to delete profile image');
-    }
+    // try {
+    //     await s3.deleteObject(params).promise();
+    // } catch (err) {
+    //     console.error('Error deleting profile image:', err);
+    //     throw new Error('Failed to delete profile image');
+    // }
 
 }
