@@ -75,13 +75,15 @@ export default function Home() {
         </article>
       </section>
       <section className="chat__usage block" >
-        <p>
+        <Card title="Let's go!">
+          <div className="chat__usage__content">
           To start using the application, please sign in with google account, or create account.
-        </p>
-        <Button 
-          className="chat__usage__proceed"
-          onClick={() => setShowModal(true)}
-        > Proceed </Button> 
+          <Button 
+            className="chat__usage__proceed"
+            onClick={() => setShowModal(true)}
+          > Proceed </Button> 
+          </div>
+        </Card>
         <AuthModal 
           show={showModal} 
           onClose={() => setShowModal(false)}
