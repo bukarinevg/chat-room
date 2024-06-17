@@ -76,6 +76,7 @@ export async function updateProfileImage(
     prevState: {}, 
     queryData: FormData
 ){
+    console.log('updateProfileImage');
     const fs= require('fs');
     const file = queryData.get('profileImage');
     
