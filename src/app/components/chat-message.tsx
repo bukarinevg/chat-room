@@ -1,7 +1,10 @@
 'use client';
 
-import { Message } from '@/lib/types';
 import '@styles/chat-message.scss';
+import logo from '@public/images/profile-default.jpg';
+import { Message } from '@/lib/types';
+
+import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
 export default function ChatMessage(
@@ -17,6 +20,10 @@ export default function ChatMessage(
         isCreator = true;
     }
 
+    if(message.user.image){
+        message.user.image = process.env.NEXT_PUBLIC_AWS_S3_URL + message.user.image;
+    }
+    const image = message.user.image ?? logo;
 
     return(
         <div className={`chat-message ${isCreator? 'chat-message__creator' : ''}`} >
@@ -24,11 +31,14 @@ export default function ChatMessage(
                     {
                         ! isCreator && (
                             <div className='chat-message__author'> 
-                                <img 
+                                <Image 
                                     title={message.user.name}
                                     className='chat-message__author__avatar' 
-                                    src='https://loremflickr.com/320/240' 
-                                    alt='Author' />
+                                    src={image}
+                                    alt='Author'
+                                    width={50}
+                                    height={50}
+                                 />
                             </div>
                         )
                     }

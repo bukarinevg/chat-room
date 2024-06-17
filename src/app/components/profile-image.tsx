@@ -1,7 +1,7 @@
 'use client';
 
 import '@styles/profile-image.scss';
-import logo from '@public/next.svg';
+import logo from '@public/images/profile-default.jpg';
 import React, { useContext, useRef, useState } from 'react';
 import { updateProfileImage } from '@/lib/actions';
 import { useFormState } from 'react-dom';
@@ -11,9 +11,7 @@ import { LoadingContext } from '@components/providers/LoadingProvider';
 
 export default  function ProfileImage({id, image} : {id : string, image:string|null}){
     if(image){
-        // console.log(process.env.NEXT_PUBLIC_AWS_S3_URL );
-        image =  process.env.NEXT_PUBLIC_AWS_S3_URL +  image;
-
+        image= process.env.NEXT_PUBLIC_AWS_S3_URL + image;
     }
     const [file, setFile] = useState(image ?? logo);
     const {setLoading} = useContext(LoadingContext);
@@ -32,6 +30,7 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
         }
     }
 
+
     return(
         <div  className='profile-image'>
             <div>
@@ -41,8 +40,8 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
                         className='profile-image__img'
                         src={file}
                         alt="profile image"
-                        width={150}
-                        height={150}
+                        width={32}
+                        height={32}
                     />
                 </label>
                 <input 

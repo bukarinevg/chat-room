@@ -29,7 +29,7 @@ export default function Home() {
             title= "Stack"
           >
             NEXTJS, NEXTAUTH, TYPESCRIPT,<br></br> 
-            POSTGRESSQL, SCSS,  VERCEL 
+            POSTGRESQL, SCSS, VERCEL, AWS S3
           </Card>
           <Card
             title= "Links"
