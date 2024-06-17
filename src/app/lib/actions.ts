@@ -35,6 +35,7 @@ export async function updateUser(
     prevState: UpdateUserFormState, 
     queryData: FormData
 ) {
+    console.log('updateUser');
     const validatedFields = UpdateUserSchema.safeParse({
         name: queryData.get('name'),
         password: queryData.get('password')
