@@ -363,6 +363,7 @@ export async function joinChat(
             }
         }
     });
+    redirect(`/chat/${chatId}`);
 }
 
 
