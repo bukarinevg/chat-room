@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";   
 import { UserDetails } from "@/lib/types";
+import { useRouter } from "next/navigation";
 
 
 export default function Header(
@@ -20,18 +21,31 @@ export default function Header(
      }
 ){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const router = useRouter();
 
     const toggleMenu = (state: boolean) => {
       setIsMenuOpen(state);
     };
 
+    const handleTimeClick = () => {
+        router.push('/chat');
+    };
+
     const callbackUrl = "/";
+
 
     return(
         <header onMouseLeave={() => toggleMenu(false)}  >
             <AddChat users={users} />
             <div>
-                {new Date().getHours()}:{new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}
+                <a
+                    href='#'
+                    onClick={handleTimeClick}
+                >
+                {
+                new Date().getHours()}:{new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()
+                }
+                </a>
             </div>
             <div>
                 <a
