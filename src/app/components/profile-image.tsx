@@ -11,21 +11,23 @@ import { LoadingContext } from '@components/providers/LoadingProvider';
 
 export default  function ProfileImage({id, image} : {id : string, image:string|null}){
     if(image){
-        console.log(process.env.NEXT_PUBLIC_AWS_S3_URL );
+        // console.log(process.env.NEXT_PUBLIC_AWS_S3_URL );
         image =  process.env.NEXT_PUBLIC_AWS_S3_URL +  image;
 
     }
     const [file, setFile] = useState(image ?? logo);
     const {setLoading} = useContext(LoadingContext);
+
     const updateProfileImageWithId = updateProfileImage.bind(null, id);
     const [state, dispatch] = useFormState(updateProfileImageWithId, {});
+
     const imageForm = useRef<HTMLFormElement>(null);
 
     function handleChange(e : React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files[0]) {
             setFile(URL.createObjectURL(e.target.files[0])); 
             console.log('submitting');
-            const submit = imageForm.current?.submit();
+            const submit = imageForm.current?.requestSubmit();
             console.log(  submit );     
         }
     }
