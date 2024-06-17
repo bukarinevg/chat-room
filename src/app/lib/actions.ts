@@ -78,76 +78,76 @@ export async function updateProfileImage(
     queryData: FormData
 ){
     console.log('updateProfileImage');
-    const file = queryData.get('profileImage');
+    // const file = queryData.get('profileImage');
     
-    console.log('file', file);
-    if(file instanceof File) {
-        const extension = path.extname(file.name);
-        const fileName = `${Date.now()}-${uuidv4()}${extension}`;
-        const bucket = process.env.AWS_BUCKET_NAME ?? 'profileimagebucketeugene';
+    // console.log('file', file);
+    // if(file instanceof File) {
+    //     const extension = path.extname(file.name);
+    //     const fileName = `${Date.now()}-${uuidv4()}${extension}`;
+    //     const bucket = process.env.AWS_BUCKET_NAME ?? 'profileimagebucketeugene';
 
-        console.log(fileName);
+    //     console.log(fileName);
 
-        const fileBuffer = await file.arrayBuffer();
-        const awsFile = Buffer.from(fileBuffer);
+    //     const fileBuffer = await file.arrayBuffer();
+    //     const awsFile = Buffer.from(fileBuffer);
+    //     try {
+    //         const client = new S3Client({ region: process.env.AWS_REGION })
+    //         const uploadCommand = new PutObjectCommand({
+    //           Bucket: process.env.AWS_BUCKET_NAME,
+    //           Key: fileName,
+    //           Body: awsFile,
+    //         });  
+    //         const response = await client.send(uploadCommand);
 
-        // const s3 = new AWS.S3({
-        //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        //     region: process.env.AWS_REGION
-        // });
-        try {
-            const client = new S3Client({ region: process.env.AWS_REGION })
-            const uploadCommand = new PutObjectCommand({
-              Bucket: process.env.AWS_BUCKET_NAME,
-              Key: fileName,
-              Body: awsFile,
-            });  
-            const response = await client.send(uploadCommand);
-
-            await prisma.user.update({
-                where: {
-                    id: parseInt(id)
-                },
-                data: {
-                    image: fileName
-                }
-            });
-            // return Response.json(response)
-          } catch (error: any) {
-            return Response.json({ error: error.message })
-          }
+    //         await prisma.user.update({
+    //             where: {
+    //                 id: parseInt(id)
+    //             },
+    //             data: {
+    //                 image: fileName
+    //             }
+    //         });
+    //         // return Response.json(response)
+    //       } catch (error: any) {
+    //         return Response.json({ error: error.message })
+    //       }
         
-        
-        // const params = {
-        //     Bucket: bucket,
-        //     Key: fileName,
-        //     Body: awsFile,
-        //     ContentType: `image/${extension}`  // Adjust the content type if needed
-        // };
+    //     // const s3 = new AWS.S3({
+    //     //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    //     //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //     //     region: process.env.AWS_REGION
+    //     // });
+    //     // const params = {
+    //     //     Bucket: bucket,
+    //     //     Key: fileName,
+    //     //     Body: awsFile,
+    //     //     ContentType: `image/${extension}`  // Adjust the content type if needed
+    //     // };
 
-        // console.log('params', params);
+    //     // console.log('params', params);
 
 
-        // try {
-        //     const data = await s3.upload(params).promise();
-        //     await prisma.user.update({
-        //         where: {
-        //             id: parseInt(id)
-        //         },
-        //         data: {
-        //             image: fileName
-        //         }
-        //     });
-        //     console.log('Profile image uploaded successfully:', data.Location);
+    //     // try {
+    //     //     const data = await s3.upload(params).promise();
+    //     //     await prisma.user.update({
+    //     //         where: {
+    //     //             id: parseInt(id)
+    //     //         },
+    //     //         data: {
+    //     //             image: fileName
+    //     //         }
+    //     //     });
+    //     //     console.log('Profile image uploaded successfully:', data.Location);
 
-        // } catch (err) {
-        //     console.error('Error uploading profile image:', err);
-        //     throw new Error('Failed to upload profile image');
-        // }
-    }
-    permanentRedirect(`/chat/profile/${id}`);
+    //     // } catch (err) {
+    //     //     console.error('Error uploading profile image:', err);
+    //     //     throw new Error('Failed to upload profile image');
+    //     // }
+    // }
+    // permanentRedirect(`/chat/profile/${id}`);
+    // return {};
     return {};
+    
 }
 
 type CreateChatFormState = {
