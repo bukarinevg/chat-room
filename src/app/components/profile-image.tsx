@@ -18,8 +18,8 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
     const [file, setFile] = useState(image ?? logo);
     const {setLoading} = useContext(LoadingContext);
 
-    const updateProfileImageWithId = updateProfileImage.bind(null, id);
-    const [state, dispatch] = useFormState(updateProfileImageWithId, {});
+    const updateProfileImageWithIdAndPhoto = updateProfileImage.bind(null, id, image);
+    const [state, dispatch] = useFormState(updateProfileImageWithIdAndPhoto, {});
 
     const imageForm = useRef<HTMLFormElement>(null);
 
@@ -28,7 +28,7 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
             setFile(URL.createObjectURL(e.target.files[0])); 
             console.log('submitting');
             const submit = imageForm.current?.requestSubmit();
-            console.log(  submit );     
+            setLoading(true); 
         }
     }
 
