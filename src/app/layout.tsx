@@ -1,6 +1,9 @@
 "use client";
 
 import "@styles/globals.scss";
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core';
+
 import Loading from "@components/loading";
 import { LoadingProvider } from "@components/providers/LoadingProvider";
 
@@ -8,7 +11,7 @@ import { Inter } from "next/font/google";
 import Head from 'next/head';
 
 
-
+config.autoAddCss = false;
 const inter = Inter({ subsets: ["latin"] });
 
 
