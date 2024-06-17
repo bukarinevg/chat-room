@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 import path from "path";
 import pubnub from "@root/pubnub";
 import { Message } from "./types";
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 
 const prisma= new PrismaClient();
 
@@ -74,6 +74,7 @@ export async function updateUser(
 
 export async function updateProfileImage(
     id:string, 
+    previousFile:string| null,
     prevState: {}, 
     queryData: FormData
 ){
@@ -92,12 +93,17 @@ export async function updateProfileImage(
         const awsFile = Buffer.from(fileBuffer);
         try {
             const client = new S3Client({ region: process.env.AWS_REGION })
+            
             const uploadCommand = new PutObjectCommand({
               Bucket: process.env.AWS_BUCKET_NAME,
               Key: fileName,
               Body: awsFile,
             });  
             const response = await client.send(uploadCommand);
+
+            if(previousFile){
+                await deleteImage(previousFile);
+            }
 
             await prisma.user.update({
                 where: {
@@ -112,7 +118,7 @@ export async function updateProfileImage(
             return Response.json({ error: error.message })
         }
     }
-    permanentRedirect(`/chat/profile/${id}`);
+    redirect(`/chat/profile/${id}`);
     return {};
         
     //     // const s3 = new AWS.S3({
@@ -393,23 +399,11 @@ export async function joinChat(
 
 
 export async function deleteImage(name: string){
-    // const bucket = process.env.AWS_BUCKET_NAME ?? 'profileimagebucketeugene';
-    // const s3 = new AWS.S3({
-    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    //     region: process.env.AWS_REGION
-    // });
-
-    // const params = {
-    //     Bucket: bucket,
-    //     Key: name
-    // };
-
-    // try {
-    //     await s3.deleteObject(params).promise();
-    // } catch (err) {
-    //     console.error('Error deleting profile image:', err);
-    //     throw new Error('Failed to delete profile image');
-    // }
+    const client = new S3Client({ region: process.env.AWS_REGION })
+    const deleteCommand = new DeleteObjectCommand({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: name,
+    });
+    await client.send(deleteCommand);
 
 }
