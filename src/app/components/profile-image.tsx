@@ -24,6 +24,7 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
     function handleChange(e : React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files[0]) {
             setFile(URL.createObjectURL(e.target.files[0])); 
+            console.log('submitting');
             imageForm.current?.submit();       
             setLoading(true);
         }
