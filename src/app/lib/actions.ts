@@ -121,39 +121,6 @@ export async function updateProfileImage(
     redirect(`/chat/profile/${id}`);
     return {};
         
-    //     // const s3 = new AWS.S3({
-    //     //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    //     //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    //     //     region: process.env.AWS_REGION
-    //     // });
-    //     // const params = {
-    //     //     Bucket: bucket,
-    //     //     Key: fileName,
-    //     //     Body: awsFile,
-    //     //     ContentType: `image/${extension}`  // Adjust the content type if needed
-    //     // };
-
-    //     // console.log('params', params);
-
-
-    //     // try {
-    //     //     const data = await s3.upload(params).promise();
-    //     //     await prisma.user.update({
-    //     //         where: {
-    //     //             id: parseInt(id)
-    //     //         },
-    //     //         data: {
-    //     //             image: fileName
-    //     //         }
-    //     //     });
-    //     //     console.log('Profile image uploaded successfully:', data.Location);
-
-    //     // } catch (err) {
-    //     //     console.error('Error uploading profile image:', err);
-    //     //     throw new Error('Failed to upload profile image');
-    //     // }
-    // }
-    // return {};    
 }
 
 type CreateChatFormState = {
