@@ -15,8 +15,6 @@ export default async function Page({ params }: { params: { id: string } }){
     if(session.user.id !== id){
         permanentRedirect(session.user.id);
     }
-    
-
     const userModel = await prisma.user.findUnique({
         where: {
             id: parseInt(id)

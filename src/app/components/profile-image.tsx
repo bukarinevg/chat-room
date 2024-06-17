@@ -25,11 +25,9 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
         }
     }
 
-
-
-
     return(
         <div  className='profile-image'>
+            <div>
             <form action={dispatch} ref={imageForm} > 
                 <label className='profile-image__label'  htmlFor={`fileInput${id}`}>
                     <Image
@@ -49,6 +47,7 @@ export default  function ProfileImage({id, image} : {id : string, image:string|n
                     accept="image/*"
                 />
             </form>
+            </div>
         </div>
            
     )
