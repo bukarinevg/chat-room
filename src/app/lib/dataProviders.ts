@@ -93,3 +93,16 @@ export async function getPublicChats(): Promise<Array<Chat>>{
     });
 }
 
+
+
+export async function getImageById(id: number){
+    const user = await prisma.user.findUnique({
+        where: {
+            id
+        },
+    
+    });
+    if(user){
+        return user.image;
+    }
+}

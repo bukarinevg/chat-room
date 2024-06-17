@@ -8,7 +8,7 @@ const nextConfig = {
           },
           {
             protocol: 'https',
-            hostname: 'https://chat-room-chi-seven.vercel.app/',
+            hostname: 'profileimagebucketeugene.s3.eu-north-1.amazonaws.com',
             // pathname: '/_next/server/',
           },
         ],

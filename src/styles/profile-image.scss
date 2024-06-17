@@ -14,9 +14,9 @@
     border: 1px solid $lightPrimary;
     background-color: $lightPrimary;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
     cursor: pointer;
     transition: all 0.3s;
+    box-shadow: 0px 7px 30px;
 
     &:hover{
         transform: scale(1.1);
