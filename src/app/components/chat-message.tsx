@@ -20,9 +20,10 @@ export default function ChatMessage(
         isCreator = true;
     }
 
-    if(message.user.image){
+    if(message.user.image && !message.user.image.includes('http')){
         message.user.image = process.env.NEXT_PUBLIC_AWS_S3_URL + message.user.image;
     }
+
     const image = message.user.image ?? logo;
 
     return(

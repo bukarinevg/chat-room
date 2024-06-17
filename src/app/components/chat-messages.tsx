@@ -16,6 +16,8 @@ export default function ChatMessages(
 
     const [loading, setLoadingMessages] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const audioRef = useRef(new Audio('/sounds/notification.wav')); 
+
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });        
     };
@@ -32,6 +34,7 @@ export default function ChatMessages(
             setMessages(
                 (currentMessages) => {
                 if (event.message.id !== currentMessages[currentMessages.length - 1]?.id) {
+                  audioRef.current.play().catch(error => console.error("Audio play failed", error));
                   return [...currentMessages, event.message];
                 }
                 return currentMessages;

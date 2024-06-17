@@ -3,8 +3,6 @@ import '@styles/chat-home.scss';
 import { Metadata } from "next";
 import { getPublicChats, getUserChats, getUsers } from '@lib/dataProviders';
 import { auth } from '@/lib/auth';
-import { joinChat } from '@lib/actions';
-import Button from '@components/button';
 import Card from '@components/card';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
