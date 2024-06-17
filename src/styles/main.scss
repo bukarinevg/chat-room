@@ -2,9 +2,8 @@
 
 .content{
     width: 100%;
-    padding: 10%;
+    padding: 5%;
     color: $darkPrimary;
-    font-size: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,23 +13,49 @@
 
     .chat{
         &__description{
+            color: $darkPrimary;
+            
             &__header{
                 font-size: 2rem;
+                font-weight: bold;
+                color: $darkPrimary;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid $darkSecondary;
+            }
+
+            &__cards{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                width: 100%;
+                margin-top: 2rem;
+                gap: 1rem;
+
             }
     
-            &__stack{
-                font-size: 1.5rem;
-                color: green;
-            }
+          
     
-            &__text{
+            &__links{
                 font-size: 1rem;
-                color: red;
-            }
-    
-            &__link{
-                font-size: 1rem;
-                color: blue;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: start;
+
+                &__icon{
+                    font-size: 1rem;
+                   
+                }
+
+                &__text{
+                    font-size: 1rem;
+                    &::before{
+                        content: " ";                    
+                    }
+                
+                }
             }
         }
 
@@ -43,20 +68,13 @@
             width: fit-content;
 
             &__proceed{
-                margin-left: 1em;
-                background-color: blue;
+                margin-top: 1em;
+                background-color: rgba($darkPrimary, 0.8);
                 color:white;
                 &:hover{
-                    background-color: rgba(0,0,255,0.7);
+                    background-color: $darkPrimary;
                 }
             }
         }
-
-
-    }
-
-    
-
-
-    
+    }    
 }

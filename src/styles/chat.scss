@@ -59,18 +59,22 @@ header{
         }
 
         &__menu{
-            // cursor: pointer;
-            position: absolute;
-            z-index: 1;
+            border-radius: 1rem;
             padding: 0.5rem;
-            top: 7%;
-            right: 0rem;
-            background-color: $darkPrimary;
+            background-color: $darkSecondary;
             display: flex;
             flex-direction: column;
 
             &__sign-out{
-                border-top: 1px solid white;
+                border-top: 1px solid $lightSecondary;
+            }
+
+            &__wrapper{
+                position: absolute;
+                padding: 0.3rem;
+                top: 7%;
+                right: 0rem;
+                z-index: 1;
             }
         }
     }

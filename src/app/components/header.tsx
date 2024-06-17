@@ -48,18 +48,20 @@ export default function Header(
             
             {
                 isMenuOpen && (
-                    <div className="header__menu">
-                        <a
-                            className="button"
-                            href={`/chat/profile/${id}`}
-                        >
-                            {email}
-                        </a>
-                        <a 
-                        className="button header__menu__sign-out"
-                            onClick={() => signOut({ callbackUrl })}
-                        > Sign Out
-                        </a>
+                    <div className="header__menu__wrapper">
+                        <div className="header__menu">
+                            <a
+                                className="button"
+                                href={`/chat/profile/${id}`}
+                            >
+                                {email}
+                            </a>
+                            <a 
+                            className="button header__menu__sign-out"
+                                onClick={() => signOut({ callbackUrl })}
+                            > Sign Out
+                            </a>
+                        </div>
                     </div>
                 )
             }
