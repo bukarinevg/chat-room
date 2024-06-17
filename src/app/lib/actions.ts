@@ -2,11 +2,13 @@
 
 import { PrismaClient } from "@prisma/client";
 import { permanentRedirect, redirect } from 'next/navigation'
+import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 import bcrypt from "bcryptjs";
 import path from "path";
 import pubnub from "@root/pubnub";
 import { Message } from "./types";
+import AWS from 'aws-sdk'; 
 
 const prisma= new PrismaClient();
 
@@ -80,29 +82,42 @@ export async function updateProfileImage(
     
     if(file instanceof File) {
         const extension = path.extname(file.name);
-        const fileName = `${id}${extension}`;
-        const uploadDir = path.join(process.cwd(), 'public', 'images');
-        const filePath = path.join(process.cwd(), 'public', 'images', fileName);
+        const fileName = `${Date.now()}-${uuidv4()}`;
+        const bucket = process.env.NEXT_AWS_S3_BUCKET_NAME ?? 'profileimagebucketeugene';
 
-        // console.log('cwd', process.cwd());
-        // console.log('dirname', __dirname);
-        // console.log('path',filePath);
-        // console.log('dir', fs.readdirSync(process.cwd()));
+        const s3 = new AWS.S3({
+            accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            region: process.env.NEXT_AWS_S3_REGION
+        });
 
-        if(!fs.existsSync(uploadDir)){
-            fs.mkdirSync(uploadDir);
+        const fileBuffer = await file.arrayBuffer();
+        const awsFile = Buffer.from(fileBuffer);
+        
+        const params = {
+            Bucket: bucket,
+            Key: fileName,
+            Body: awsFile,
+            ContentType: `image/${extension}`  // Adjust the content type if needed
+        };
+
+
+        try {
+            const data = await s3.upload(params).promise();
+            await prisma.user.update({
+                where: {
+                    id: parseInt(id)
+                },
+                data: {
+                    image: fileName
+                }
+            });
+            console.log('Profile image uploaded successfully:', data.Location);
+
+        } catch (err) {
+            console.error('Error uploading profile image:', err);
+            throw new Error('Failed to upload profile image');
         }
-        await file.arrayBuffer().then((data) => {
-            fs.writeFileSync(filePath, Buffer.from(data));
-        });
-        await prisma.user.update({
-            where: {
-                id: parseInt(id)
-            },
-            data: {
-                image: fileName
-            }
-        });
     }
     permanentRedirect(`/chat/profile/${id}`);
     return {};
@@ -348,4 +363,27 @@ export async function joinChat(
             }
         }
     });
+}
+
+
+export async function deleteImage(name: string){
+    const bucket = process.env.NEXT_AWS_S3_BUCKET_NAME ?? 'profileimagebucketeugene';
+    const s3 = new AWS.S3({
+        accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: process.env.NEXT_AWS_S3_REGION
+    });
+
+    const params = {
+        Bucket: bucket,
+        Key: name
+    };
+
+    try {
+        await s3.deleteObject(params).promise();
+    } catch (err) {
+        console.error('Error deleting profile image:', err);
+        throw new Error('Failed to delete profile image');
+    }
+
 }
