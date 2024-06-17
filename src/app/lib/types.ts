@@ -27,6 +27,7 @@ export type Chat = {
     id: number;
     name: string;
     private : boolean;
+    ownerId: number;
     users?: UserDetails[];
     messages?: Message[];
 }
@@ -34,7 +35,8 @@ export type Chat = {
 export type Message = {
   id: number,
   text: string,
-  user: {
+  userId: number,
+  user?: {
       id: number,
       name: string,
       image: string | null,

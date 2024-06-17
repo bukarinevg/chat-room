@@ -1,11 +1,11 @@
 'use server';
 
 import { PrismaClient } from "@prisma/client";
-import { UserDetails } from "@lib/types";
+import { Chat, UserDetails } from "@lib/types";
 
 const prisma = new PrismaClient();
 
-export const getUsersInformation = async (): Promise<Array<UserDetails>> => {
+export const getUsers = async (): Promise<Array<UserDetails>> => {
     const data = await prisma.user.findMany({
         select: {
             id: true,
@@ -46,12 +46,12 @@ export const getChats = async () => {
     return prisma.chat.findMany();
 }
 
-export const getUserChats = async (id: string) => {
+export const getUserChats = async (id: number) => {
     return prisma.chat.findMany({
         where:{
             users: {
                 some: {
-                    id: Number(id)
+                    id: id
                 }
             }
         }
@@ -69,3 +69,27 @@ export const getChatById = async (id: string) => {
         },
     });
 }
+
+export async function getMessages(chatId: number){
+    return await prisma.message.findMany({
+        where: {
+            chatId
+        },
+        include: {
+            user: true
+        }
+    });
+}
+
+export async function getPublicChats(): Promise<Array<Chat>>{
+    return await prisma.chat.findMany({
+        where:{
+            private: false
+        },
+        include:{
+            users: true,
+            messages: true,
+        }
+    });
+}
+

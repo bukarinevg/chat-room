@@ -16,11 +16,9 @@ export default function Sidenav(
     const [open, setOpen] = useState(false);
     const router = useRouter();
     const { setLoading } = useContext(LoadingContext);
-    alert(open);
 
     const handleSideNavClick = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-        alert(open);
         if(!open){
             setOpen(true);
         }

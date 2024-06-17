@@ -9,6 +9,10 @@ export default function ChatMessage(
 ){
     let isCreator = false;
     const userId = useSession()?.data?.user.id;
+    if(!message.user){
+        return null;
+    }
+
     if(userId && message.user.id && Number(userId) === message.user.id){
         isCreator = true;
     }

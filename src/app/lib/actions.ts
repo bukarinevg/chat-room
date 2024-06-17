@@ -286,6 +286,7 @@ export async function createMessage(
                 const pubMessage: Message = {
                     id: message.id,
                     text: message.text,
+                    userId: message.user.id,
                     user: {
                         id: message.user.id,
                         name: message.user.name,
@@ -316,13 +317,35 @@ export async function createMessage(
     };
 }
 
-export async function getMessages(chatId: number){
-    return await prisma.message.findMany({
+
+
+export async function joinChat(
+    userId: number,
+    chatId: number
+){
+    const chat = await prisma.chat.findUnique({
         where: {
-            chatId
+            id: chatId
         },
-        include: {
-            user: true
+        include:{
+            users: true
+        }
+    });
+
+    if(chat?.users.find((user) => user.id === userId)){
+        redirect(`/chat/${chatId}`);
+    }
+
+    await prisma.chat.update({
+        where: {
+            id: chatId
+        },
+        data: {
+            users: {
+                connect: {
+                    id: userId
+                }
+            }
         }
     });
 }

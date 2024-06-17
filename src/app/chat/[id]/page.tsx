@@ -5,7 +5,7 @@ import ChatMessages from "@components/chat-messages";
 import { getChatById } from "@/lib/dataProviders";
 import { Message, UserDetails, UserSesionInterface } from "@/lib/types";
 import { auth } from "@/lib/auth";
-import { getMessages } from "@/lib/actions";
+import { getMessages } from "@/lib/dataProviders";
 
 import { notFound } from 'next/navigation'
 import { Metadata } from "next";
