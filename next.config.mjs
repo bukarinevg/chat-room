@@ -11,6 +11,11 @@ const nextConfig = {
             hostname: 'profileimagebucketeugene.s3.eu-north-1.amazonaws.com',
             // pathname: '/_next/server/',
           },
+          {
+            protocol: 'https',
+            hostname: 'lh3.googleusercontent.com',
+            // pathname: '/_next/server/',
+          }
         ],
       },
 };
