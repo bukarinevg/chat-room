@@ -40,7 +40,7 @@ export default function ChatMessages(
                   if(audioReceiveRef && audioReceiveRef?.current && audioSendRef && audioSendRef.current){
                     console.log(`user?.id event.message.user.id ${user?.id} ${event.message.user.id}`);
 
-                    if(user?.id !== event.message.user.id){
+                    if(user?.id != event.message.user.id){
                       audioReceiveRef.current.play();
                     }
                     else{

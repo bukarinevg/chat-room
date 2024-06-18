@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 import { useFormState } from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { ReactEventHandler, useState } from 'react';
+import { ReactEventHandler, useState, useRef } from 'react';
 
 
 
@@ -28,6 +28,7 @@ export default function ChatForm(
     const createChatWithUserId = createMessage.bind(null, userId, chatId);
     const[ state, dispatch ] = useFormState(createChatWithUserId, initialState);
     const [message, setMessage] = useState('');
+    const chatForm = useRef<HTMLFormElement>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.currentTarget.value);
@@ -37,6 +38,13 @@ export default function ChatForm(
         setMessage('');
         
     };
+
+    const dragEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if(e.key === 'Enter' && !e.shiftKey){
+            e.preventDefault();
+            const submit = chatForm.current?.requestSubmit();
+        }
+    }
     
 
     return(
@@ -45,17 +53,22 @@ export default function ChatForm(
                 className='chat-form'
                 action={dispatch}
                 onSubmit={handleSend}
+                ref={chatForm}
                 >
                 <textarea 
+                    onKeyDown={dragEnter}
                     onChange={handleChange}
                     name='message'
                     rows={1}  
                     value={message}
                  />
 
-                <Button>
-                    <FontAwesomeIcon icon={faPaperPlane} className='chat-form__icon' />
-                </Button>
+                <div >
+                    <Button >
+                        <FontAwesomeIcon  icon={faPaperPlane} className='chat-form__icon' />
+                    </Button>
+                </div>
+
             </form>
            
                 { 
@@ -71,3 +84,4 @@ export default function ChatForm(
         </div>        
     );
 }
+
