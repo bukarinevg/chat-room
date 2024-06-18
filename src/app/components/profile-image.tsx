@@ -10,7 +10,7 @@ import { LoadingContext } from '@components/providers/LoadingProvider';
 
 
 export default  function ProfileImage({id, image} : {id : string, image:string|null}){
-    if(image){
+    if(image && !image.startsWith('http')){
         image= process.env.NEXT_PUBLIC_AWS_S3_URL + image;
     }
     const [file, setFile] = useState(image ?? logo);
