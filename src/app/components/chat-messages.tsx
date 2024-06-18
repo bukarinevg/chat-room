@@ -3,8 +3,8 @@
 import '@styles/chat-messages.scss';
 import ChatMessage from '@components/chat-message';
 import Spinner from '@components/spinner';
-import { LoadingContext } from '@components/providers/LoadingProvider';
 import { Message } from '@/lib/types';
+
 
 import { useRef, useEffect, useState, useContext } from 'react';
 import pubnub from '@root/pubnub';
@@ -16,7 +16,8 @@ export default function ChatMessages(
 
     const [loading, setLoadingMessages] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const audioRef = useRef(new Audio('/sounds/notification.wav')); 
+    const audioRef = useRef(new Audio('/notification.mp3'));
+
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });        
@@ -50,7 +51,9 @@ export default function ChatMessages(
 
     return (
         <div className='chat-messages'>
+          <audio style={{display:'none'}} ref={audioRef} src='/notification.mp3' />
             {    
+           
                 !loading && chatMessages &&
                 (                
                     chatMessages.map((message, index) => (
