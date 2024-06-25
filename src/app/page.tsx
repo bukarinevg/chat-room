@@ -7,16 +7,18 @@ import { useEffect, useState } from "react";
 import Card from "./components/card";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { signIn } from "next-auth/react";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
+  const callbackUrl = "/chat";
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setShowModal(true);
-    }, 1500
-    )
-  }, []);
+  // useEffect(()=>{
+  //   setTimeout(()=>{
+  //     setShowModal(true);
+  //   }, 1500
+  //   )
+  // }, []);
 
 
   return (
@@ -77,10 +79,21 @@ export default function Home() {
       <section className="chat__usage block" >
         <Card title="Let's go!">
           <div className="chat__usage__content">
-          To start using the application, please sign in with google account, or create account.
+          To start using the application, please sign in with google account.
+          <br></br>
+          I just want to make sure that you are not a robot.
+          <br></br>
+          And get your name and email to create a chat room.
           <Button 
             className="chat__usage__proceed"
-            onClick={() => setShowModal(true)}
+            onClick={
+              () => 
+                  signIn("google", { 
+                      callbackUrl,
+                      redirect: false
+              })
+
+          }
           > Proceed </Button> 
           </div>
         </Card>
