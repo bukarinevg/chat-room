@@ -26,6 +26,19 @@ export default function RootLayout({
     <html lang="en">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="images/favicon.ico" />
+        <link
+          rel="icon"
+          href="/icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="/apple-icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
       </Head>
       <body className={inter.className}>
         <LoadingProvider>
